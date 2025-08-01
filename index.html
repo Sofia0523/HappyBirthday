@@ -30,16 +30,6 @@
             margin-bottom: 20px;
         }
 
-        .audio-prompt {
-            position: absolute;
-            top: 25px;
-            right: 80px;
-            color: #ff69b4;
-            font-family: 'Poppins', sans-serif;
-            font-size: 16px;
-            z-index: 99;
-        }
-
         .photo-gallery {
             display: flex;
             flex-wrap: wrap;
@@ -443,6 +433,27 @@
             z-index: 100;
         }
 
+        #volume-meter {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 20px;
+            height: 100px;
+            background-color: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #ccc;
+            display: none; /* Приховуємо за замовчуванням */
+        }
+
+        #volume-bar {
+            width: 100%;
+            background-color: #ff69b4;
+            position: absolute;
+            bottom: 0;
+            transition: height 0.1s ease;
+        }
+
         /* Медіа-запити для адаптивності на мобільних пристроях */
         @media (max-width: 600px) {
             .main-title {
@@ -460,10 +471,6 @@
             .photo-item {
                 width: 100%;
             }
-            .audio-prompt {
-                font-size: 14px;
-                right: 70px;
-            }
             #audio-toggle {
                 width: 40px;
                 height: 40px;
@@ -471,13 +478,14 @@
                 top: 10px;
                 right: 10px;
             }
-            .audio-prompt {
-                top: 15px;
-                right: 60px;
-                font-size: 12px;
-            }
             .cake {
                 transform: scale(0.8); 
+            }
+            #volume-meter {
+                top: 60px;
+                right: 10px;
+                width: 15px;
+                height: 80px;
             }
         }
 
@@ -494,9 +502,6 @@
             .photo-item {
                 width: 45%;
             }
-            .audio-prompt {
-                font-size: 16px;
-            }
         }
     </style>
 </head>
@@ -506,10 +511,10 @@
     
     <header class="header">
         <h1 class="main-title">З Днем Народження, Лено! 🎉</h1>
-        <div class="audio-prompt">Перш за все нажми сюди</div>
     </header>
 
     <button id="audio-toggle" class="fa-solid fa-music"></button>
+    <div id="volume-meter"><div id="volume-bar"></div></div>
 
     <section class="photo-gallery">
         <div class="photo-item">
@@ -675,6 +680,8 @@
             const actionButton = document.getElementById("action-button");
             const wishTextMessage = document.getElementById("wish-text-message");
             const blowingJokeText = document.getElementById("blowing-joke-text");
+            const volumeMeter = document.getElementById("volume-meter");
+            const volumeBar = document.getElementById("volume-bar");
             let mediaStream = null;
             let audioContext = null;
             let analyser = null;
@@ -686,10 +693,8 @@
                 const centerX = 125;
                 const centerY = 47;
                 
-                // Передня свічка
                 positions.push({ left: centerX - 6, top: -33 });
                 
-                // Внутрішнє коло
                 const innerCandleCount = 8;
                 const innerRadiusX = 50;
                 const innerRadiusY = 18;
@@ -700,7 +705,6 @@
                     positions.push({ left, top });
                 }
                 
-                // Зовнішнє коло
                 const outerCandleCount = 16;
                 const outerRadiusX = 110;
                 const outerRadiusY = 40;
@@ -729,7 +733,17 @@
             const applauseAudio = document.getElementById("applause-audio");
             const audioToggle = document.getElementById("audio-toggle");
 
-            audio.play().catch(e => console.log("Музика не відтворилася автоматично:", e));
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    audioToggle.classList.remove('fa-volume-xmark');
+                    audioToggle.classList.add('fa-music');
+                }).catch(e => {
+                    console.log("Музика не відтворилася автоматично:", e);
+                    audioToggle.classList.remove('fa-music');
+                    audioToggle.classList.add('fa-volume-xmark');
+                });
+            }
 
             audioToggle.addEventListener("click", () => {
                 if (audio.paused) {
@@ -767,7 +781,6 @@
                 audio.play();
             });
             
-            // Функція для перемішування масиву
             function shuffle(array) {
                 for (let i = array.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
@@ -795,16 +808,23 @@
                         actionButton.classList.add('instructional');
                         blowingJokeText.style.display = "block";
                         isBlowing = true;
+                        volumeMeter.style.display = "block"; // Показуємо індикатор гучності
                         
-                        const minVolumeThreshold = 110; // Збільшений поріг гучності
-                        const maxCandlesToBlow = 3;
+                        const minVolumeThreshold = 75; // Знижений поріг гучності
+                        const maxCandlesToBlow = 5;    // Збільшено кількість свічок за раз
                         
                         function processMicrophoneInput() {
-                            if (!isBlowing) return;
+                            if (!isBlowing) {
+                                volumeMeter.style.display = "none";
+                                return;
+                            }
                             
                             analyser.getByteFrequencyData(dataArray);
                             const volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
                             
+                            const volumeHeight = Math.min(volume / 255 * 100, 100);
+                            volumeBar.style.height = `${volumeHeight}%`;
+
                             const remainingCandles = Array.from(document.querySelectorAll('.candle:not(.out)'));
                             
                             if (volume > minVolumeThreshold && remainingCandles.length > 0) {
@@ -832,6 +852,10 @@
                         console.error("Microphone access denied:", err);
                         actionButton.textContent = "Доступ до мікрофона відхилено";
                         actionButton.disabled = false;
+                        blowingJokeText.style.display = "none";
+                        wishTextMessage.style.display = "block";
+                        wishTextMessage.textContent = "Щоб задути свічки, надайте дозвіл на мікрофон";
+                        setTimeout(resetCandles, 5000);
                     });
             }
 
@@ -841,6 +865,7 @@
                     mediaStream.getTracks().forEach(track => track.stop());
                     mediaStream = null;
                 }
+                volumeMeter.style.display = "none";
 
                 if (!audio.paused) {
                     audio.pause();
