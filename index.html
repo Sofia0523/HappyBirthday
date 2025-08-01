@@ -808,10 +808,10 @@
                         actionButton.classList.add('instructional');
                         blowingJokeText.style.display = "block";
                         isBlowing = true;
-                        volumeMeter.style.display = "block"; // Показуємо індикатор гучності
+                        volumeMeter.style.display = "block";
                         
-                        const minVolumeThreshold = 75; // Знижений поріг гучності
-                        const maxCandlesToBlow = 5;    // Збільшено кількість свічок за раз
+                        const minVolumeThreshold = 45; // Ще більше зменшений поріг гучності
+                        const maxCandlesToBlow = 5;    // Кількість свічок за раз
                         
                         function processMicrophoneInput() {
                             if (!isBlowing) {
