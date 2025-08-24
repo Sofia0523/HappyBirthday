@@ -16,7 +16,7 @@
             font-weight: 400;
             font-style: normal;
         }
-        
+
         .montserrat-font {
             font-family: "Montserrat", sans-serif;
             font-weight: 400;
@@ -24,12 +24,8 @@
         }
 
         body {
-            margin: 0;
-            background-image: url('leopard.jpg'); 
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center center;
+            margin: 0; 
+            background-color: #333; /* Fallback color */
             overflow-x: hidden;
             font-family: 'Montserrat', sans-serif;
             line-height: 1.6;
@@ -44,8 +40,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
             z-index: -1;
+            
+            background-image: url('leopard.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            
+            /* Overlay effect using a more reliable method */
+            box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5);
         }
 
         .header {
@@ -201,7 +204,6 @@
             background-color: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(5px);
             scroll-snap-align: center;
-            /* UPDATED: Added properties for consistent height and centering */
             height: 65vh;
             max-height: 500px;
             display: flex;
@@ -210,7 +212,6 @@
         }
         
         .slider-item img {
-            /* UPDATED: Changed properties to better handle various aspect ratios */
             max-width: 100%;
             max-height: 100%;
             width: auto;
@@ -716,7 +717,6 @@
                     positions.push({ left, top });
                 }
                 
-                // FIXED: Removed the sort function that was misplacing the center candle
                 return positions;
             }
             
@@ -726,7 +726,6 @@
                 if (candlePositions[index]) {
                     candle.style.left = `${candlePositions[index].left}px`;
                     candle.style.top = `${candlePositions[index].top}px`;
-                    // A simple z-index sort based on 'top' position to create depth
                     const zIndex = Math.round(candlePositions[index].top) + 50;
                     candle.style.zIndex = zIndex;
                 }
