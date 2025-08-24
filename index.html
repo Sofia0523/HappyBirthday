@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- Підключення бібліотеки для конфеті -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
         /* CSS classes for new fonts */
@@ -25,13 +24,10 @@
             font-style: normal;
         }
 
+        /* --- ВИПРАВЛЕННЯ ФОНУ: Крок 1 --- */
         body {
             margin: 0; 
-            background-image: url('leopard.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center center;
+            background-color: #333; /* Запасний колір, якщо фон не завантажиться */
             overflow-x: hidden;
             font-family: 'Montserrat', sans-serif;
             line-height: 1.6;
@@ -39,6 +35,7 @@
             position: relative;
         }
 
+        /* --- ВИПРАВЛЕННЯ ФОНУ: Крок 2 --- */
         body::before {
             content: '';
             position: fixed;
@@ -46,8 +43,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
             z-index: -1;
+            
+            /* Стилі фону перенесено сюди для коректної роботи на мобільних */
+            background-image: url('leopard.jpg');
+            background-size: cover;
+            background-position: center center;
+            
+            /* Затемнення через тінь, а не окремий колір */
+            box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5);
         }
 
         .header {
@@ -94,7 +98,6 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
         
-        /* Стилі для нейтральних кнопок */
         .action-button,
         .video-button,
         .letter-button {
@@ -138,15 +141,14 @@
         .action-button:disabled {
             background-color: rgba(200, 200, 200, 0.7);
             cursor: not-allowed;
-            color: #000000; /* Changed to black for visibility */
+            color: #000000;
         }
 
         .photo-gallery {
-            /* Masonry layout for desktop */
             column-count: 3;
             column-gap: 20px;
             padding: 20px;
-            display: block; /* Default to block for desktop */
+            display: block;
         }
         
         .photo-item {
@@ -173,9 +175,8 @@
             font-size: 0.9em;
         }
         
-        /* Слайдер-карусель для мобільних пристроїв */
         .photo-slider {
-            display: none; /* Приховуємо на десктопі */
+            display: none;
             padding: 20px 0;
             position: relative;
             width: 100%;
@@ -186,7 +187,6 @@
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
-            /* ВИДАЛЕНО: touch-action: pan-x; для виправлення скролу на мобільних */
             gap: 15px;
             padding: 0 20px;
             box-sizing: border-box;
@@ -227,9 +227,8 @@
         }
         
         .letter-button-container {
-            margin-top: 20px; /* Додаємо відступ після блоку торта */
+            margin-top: 20px;
         }
-
 
         .fullscreen-video-container {
             display: none;
@@ -458,7 +457,6 @@
             transition: height 0.1s ease;
         }
         
-        /* Модальне вікно для листа */
         .modal {
             display: none;
             position: fixed;
@@ -521,7 +519,6 @@
             text-decoration: none;
         }
         
-        /* Медіа-запити для адаптивності на мобільних пристроях */
         @media (max-width: 600px) {
             .photo-gallery { display: none; }
             .photo-slider { display: block; }
@@ -558,7 +555,6 @@
     <button id="audio-toggle" class="fa-solid fa-music"></button>
     <div id="volume-meter"><div id="volume-bar"></div></div>
 
-    <!-- Галерея Masonry для десктопу -->
     <section class="photo-gallery">
         <div class="photo-item"><img src="https://placehold.co/400x600?text=Фото+1" alt="Placeholder Photo 1"></div>
         <div class="photo-item"><img src="https://placehold.co/400x500?text=Фото+2" alt="Placeholder Photo 2"></div>
@@ -568,7 +564,6 @@
         <div class="photo-item"><img src="https://placehold.co/400x650?text=Фото+6" alt="Placeholder Photo 6"></div>
     </section>
 
-    <!-- Слайдер-карусель для мобільного -->
     <section class="photo-slider">
         <div class="photo-slider-wrapper">
             <div class="slider-item"><img src="https://placehold.co/400x600?text=Фото+1" alt="Placeholder Photo 1"></div>
@@ -610,7 +605,7 @@
                     <div class="drip drip1"></div>
                     <div class="drip drip2"></div>
                     <div class="drip drip3"></div>
-                    <!-- Свічки -->
+                    <!-- Candles -->
                     <div class="candle"><div class="flame"></div></div>
                     <div class="candle"><div class="flame"></div></div>
                     <div class="candle"><div class="flame"></div></div>
@@ -657,7 +652,6 @@
         </audio>
     </div>
 
-    <!-- Модальне вікно -->
     <div id="letter-modal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
@@ -698,9 +692,7 @@
                 const innerRadiusY = 18;
                 for (let i = 0; i < innerCandleCount; i++) {
                     const angle = (2 * Math.PI / innerCandleCount) * i - Math.PI / 2;
-                    const left = centerX + innerRadiusX * Math.cos(angle) - 6;
-                    const top = centerY + innerRadiusY * Math.sin(angle) - 35;
-                    positions.push({ left, top });
+                    positions.push({ left: centerX + innerRadiusX * Math.cos(angle) - 6, top: centerY + innerRadiusY * Math.sin(angle) - 35 });
                 }
                 
                 const outerCandleCount = 16;
@@ -708,22 +700,18 @@
                 const outerRadiusY = 40;
                 for (let i = 0; i < outerCandleCount; i++) {
                     const angle = (2 * Math.PI / outerCandleCount) * i - Math.PI / 2;
-                    const left = centerX + outerRadiusX * Math.cos(angle) - 6;
-                    const top = centerY + outerRadiusY * Math.sin(angle) - 35;
-                    positions.push({ left, top });
+                    positions.push({ left: centerX + outerRadiusX * Math.cos(angle) - 6, top: centerY + outerRadiusY * Math.sin(angle) - 35 });
                 }
                 
                 return positions;
             }
             
             const candlePositions = calculateCandlePositions();
-            
             candles.forEach((candle, index) => {
                 if (candlePositions[index]) {
                     candle.style.left = `${candlePositions[index].left}px`;
                     candle.style.top = `${candlePositions[index].top}px`;
-                    const zIndex = Math.round(candlePositions[index].top) + 50;
-                    candle.style.zIndex = zIndex;
+                    candle.style.zIndex = Math.round(candlePositions[index].top) + 50;
                 }
             });
 
@@ -731,8 +719,6 @@
             const applauseAudio = document.getElementById("applause-audio");
             const audioToggle = document.getElementById("audio-toggle");
 
-            // --- ВИПРАВЛЕННЯ АУДІО ---
-            // Функція для синхронізації кнопки та стану аудіо
             function syncAudioButton() {
                 if (audio.paused) {
                     audioToggle.classList.remove('fa-music');
@@ -743,30 +729,31 @@
                 }
             }
 
-            // Слухачі для автоматичного оновлення кнопки
             audio.addEventListener('play', syncAudioButton);
             audio.addEventListener('pause', syncAudioButton);
 
-            // Спроба відтворити музику при завантаженні
-            const playPromise = audio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(e => {
-                    console.log("Автоматичне відтворення заблоковано браузером:", e);
-                    syncAudioButton(); // Оновити стан кнопки, якщо відтворення не вдалося
-                });
-            }
+            // --- ВИПРАВЛЕННЯ СИНХРОНІЗАЦІЇ АУДІО ПРИ ПЕРЕХОДІ МІЖ ДОДАТКАМИ ---
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible') {
+                    syncAudioButton();
+                }
+            });
 
-            // Обробник кліку на кнопку музики
+            audio.play().catch(e => {
+                console.log("Автоматичне відтворення заблоковано:", e);
+                syncAudioButton();
+            });
+
             audioToggle.addEventListener("click", () => {
                 if (audio.paused) {
-                    audio.play().catch(e => console.log("Не вдалося відтворити музику:", e));
+                    audio.play();
                 } else {
                     audio.pause();
                 }
             });
 
             applauseAudio.addEventListener('ended', () => {
-                audio.play().catch(e => console.log("Не вдалося відновити музику після оплесків:", e));
+                audio.play();
             });
 
             const showVideoButton = document.getElementById('show-video-button');
@@ -784,8 +771,9 @@
             closeVideoButton.addEventListener('click', () => {
                 videoContainer.style.display = 'none';
                 videoIframe.src = "";
-                if (!applauseAudio.paused) return; // Не вмикати музику, якщо ще грають оплески
-                audio.play().catch(e => console.log("Не вдалося відновити музику:", e));
+                if (applauseAudio.paused) {
+                    audio.play();
+                }
             });
             
             function shuffle(array) {
@@ -802,6 +790,11 @@
                 
                 navigator.mediaDevices.getUserMedia({ audio: true })
                     .then(function(stream) {
+                        // --- ВИПРАВЛЕННЯ МУЗИКИ ПІД ЧАС АКТИВАЦІЇ МІКРОФОНА ---
+                        if (audio.paused) {
+                            audio.play().catch(e => console.log("Не вдалося відновити музику після активації мікрофона.", e));
+                        }
+                        
                         mediaStream = stream;
                         audioContext = new (window.AudioContext || window.webkitAudioContext)();
                         const source = audioContext.createMediaStreamSource(stream);
@@ -817,9 +810,6 @@
                         isBlowing = true;
                         volumeMeter.style.display = "block";
                         
-                        const minVolumeThreshold = 45;
-                        const maxCandlesToBlow = 5;
-                        
                         function processMicrophoneInput() {
                             if (!isBlowing) {
                                 volumeMeter.style.display = "none";
@@ -828,15 +818,13 @@
                             
                             analyser.getByteFrequencyData(dataArray);
                             const volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
-                            
-                            const volumeHeight = Math.min(volume / 255 * 100, 100);
-                            volumeBar.style.height = `${volumeHeight}%`;
+                            volumeBar.style.height = `${Math.min(volume / 255 * 100, 100)}%`;
 
                             const remainingCandles = Array.from(document.querySelectorAll('.candle:not(.out)'));
                             
-                            if (volume > minVolumeThreshold && remainingCandles.length > 0) {
-                                const volumeFactor = Math.min((volume - minVolumeThreshold) / 50, 1);
-                                const candlesToBlowOutCount = Math.floor(volumeFactor * maxCandlesToBlow);
+                            if (volume > 45 && remainingCandles.length > 0) {
+                                const volumeFactor = Math.min((volume - 45) / 50, 1);
+                                const candlesToBlowOutCount = Math.floor(volumeFactor * 5);
                                 
                                 const shuffledCandles = shuffle(remainingCandles);
                                 for (let i = 0; i < candlesToBlowOutCount; i++) {
@@ -846,8 +834,7 @@
                                 }
                             }
                             
-                            const allCandlesOut = document.querySelectorAll('.candle:not(.out)').length === 0;
-                            if (allCandlesOut) {
+                            if (document.querySelectorAll('.candle:not(.out)').length === 0) {
                                 finishBlowing();
                             } else {
                                 requestAnimationFrame(processMicrophoneInput);
@@ -856,7 +843,7 @@
                         processMicrophoneInput();
                     })
                     .catch(function(err) {
-                        console.error("Microphone access denied:", err);
+                        console.error("Доступ до мікрофона відхилено:", err);
                         actionButton.textContent = "Доступ до мікрофона відхилено";
                         actionButton.disabled = false;
                         blowingJokeText.style.display = "none";
@@ -866,9 +853,8 @@
                     });
             }
 
-            // --- ДОДАВАННЯ КОНФЕТІ ---
             function triggerConfetti() {
-                const duration = 5 * 1000; // 5 секунд
+                const duration = 5 * 1000;
                 const animationEnd = Date.now() + duration;
                 const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
 
@@ -878,11 +864,9 @@
 
                 const interval = setInterval(function() {
                     const timeLeft = animationEnd - Date.now();
-                    if (timeLeft <= 0) {
-                        return clearInterval(interval);
-                    }
+                    if (timeLeft <= 0) return clearInterval(interval);
+                    
                     const particleCount = 50 * (timeLeft / duration);
-                    // Запуск з двох сторін
                     confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
                     confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
                 }, 250);
@@ -892,18 +876,12 @@
                 isBlowing = false;
                 if (mediaStream) {
                     mediaStream.getTracks().forEach(track => track.stop());
-                    mediaStream = null;
                 }
                 volumeMeter.style.display = "none";
-
-                if (!audio.paused) {
-                    audio.pause();
-                }
+                audio.pause();
                 
-                // Запуск конфеті
                 triggerConfetti();
-                
-                applauseAudio.play().catch(e => console.log("Не вдалося відтворити оплески:", e));
+                applauseAudio.play();
                 
                 wishTextMessage.textContent = "Вітаємо! Нехай всі твої бажання здійснюються.";
                 wishTextMessage.classList.add('small');
@@ -915,21 +893,14 @@
             }
             
             function resetCandles() {
-                candles.forEach(candle => {
-                    candle.classList.remove("out");
-                });
-
+                candles.forEach(candle => candle.classList.remove("out"));
                 if (!applauseAudio.paused) {
                     applauseAudio.pause();
                     applauseAudio.currentTime = 0;
                 }
-                if (audio.paused) {
-                    audio.play().catch(e => console.log("Не вдалося відновити музику:", e));
-                }
-
+                audio.play();
                 wishTextMessage.textContent = "Загадай бажання і спробуй задути";
                 wishTextMessage.classList.remove('small');
-                wishTextMessage.style.display = "block";
                 actionButton.textContent = "Загадати бажання";
                 actionButton.disabled = false;
             }
@@ -946,21 +917,14 @@
             const showLetterButton = document.getElementById("show-letter-button");
             const closeButton = document.querySelector(".close-button");
             
-            showLetterButton.addEventListener("click", () => {
-                letterModal.style.display = "flex";
-            });
-
-            closeButton.addEventListener("click", () => {
-                letterModal.style.display = "none";
-            });
-
+            showLetterButton.addEventListener("click", () => letterModal.style.display = "flex");
+            closeButton.addEventListener("click", () => letterModal.style.display = "none");
             window.addEventListener("click", (event) => {
                 if (event.target === letterModal) {
                     letterModal.style.display = "none";
                 }
             });
 
-            // Викликати синхронізацію кнопки при завантаженні сторінки
             syncAudioButton();
         });
     </script>
