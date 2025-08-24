@@ -25,11 +25,12 @@
 
         body {
             margin: 0;
-            background-color: transparent;
+            background-color: #333; /* Fallback color */
             background-image: url('img2.jpg');
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
+            background-position: center center; /* Added for better centering */
             overflow-x: hidden;
             font-family: 'Montserrat', sans-serif;
             line-height: 1.6;
@@ -128,7 +129,7 @@
 
         .action-button.instructional {
             background-color: rgba(255, 255, 255, 0.2);
-            color: rgba(0, 0, 0, 0.6);
+            color: #000000; 
             cursor: default;
             pointer-events: none;
         }
@@ -136,7 +137,7 @@
         .action-button:disabled {
             background-color: rgba(200, 200, 200, 0.7);
             cursor: not-allowed;
-            color: #888;
+            color: #000000; /* Changed to black for visibility */
         }
 
         .photo-gallery {
@@ -184,7 +185,7 @@
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
-            touch-action: pan-y;
+            touch-action: pan-x;
             gap: 15px;
             padding: 0 20px;
             box-sizing: border-box;
@@ -201,10 +202,19 @@
             background-color: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(5px);
             scroll-snap-align: center;
+            /* UPDATED: Added properties for consistent height and centering */
+            height: 65vh;
+            max-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .slider-item img {
-            width: 100%;
+            /* UPDATED: Changed properties to better handle various aspect ratios */
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
             height: auto;
             border-radius: 15px;
             object-fit: contain;
@@ -626,6 +636,8 @@
                     <div class="candle"><div class="flame"></div></div>
                     <div class="candle"><div class="flame"></div></div>
                     <div class="candle"><div class="flame"></div></div>
+                    <div class="candle"><div class="flame"></div></div>
+                    <div class="candle"><div class="flame"></div></div>
                 </div>
             </div>
         </div>
@@ -680,9 +692,11 @@
                 const centerX = 125;
                 const centerY = 47;
                 
+                // 1. Центральна свічка
                 positions.push({ left: centerX - 6, top: -33 });
                 
-                const innerCandleCount = 8;
+                // 2. Внутрішнє коло з 9 свічок
+                const innerCandleCount = 9;
                 const innerRadiusX = 50;
                 const innerRadiusY = 18;
                 for (let i = 0; i < innerCandleCount; i++) {
@@ -692,6 +706,7 @@
                     positions.push({ left, top });
                 }
                 
+                // 3. Зовнішнє коло з 16 свічок
                 const outerCandleCount = 16;
                 const outerRadiusX = 110;
                 const outerRadiusY = 40;
@@ -702,7 +717,7 @@
                     positions.push({ left, top });
                 }
                 
-                positions.sort((a, b) => a.top - b.top);
+                // FIXED: Removed the sort function that was misplacing the center candle
                 return positions;
             }
             
@@ -712,7 +727,9 @@
                 if (candlePositions[index]) {
                     candle.style.left = `${candlePositions[index].left}px`;
                     candle.style.top = `${candlePositions[index].top}px`;
-                    candle.style.zIndex = index + 10;
+                    // A simple z-index sort based on 'top' position to create depth
+                    const zIndex = Math.round(candlePositions[index].top) + 50;
+                    candle.style.zIndex = zIndex;
                 }
             });
 
@@ -784,7 +801,7 @@
                     .then(function(stream) {
                         mediaStream = stream;
                         audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                        const source = audioContext.createMediaStreamSource(mediaStream);
+                        const source = audioContext.createMediaStreamSource(stream);
                         analyser = audioContext.createAnalyser();
                         source.connect(analyser);
                         analyser.fftSize = 512;
