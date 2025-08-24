@@ -160,13 +160,6 @@
             height: auto;
             display: block;
         }
-
-        .photo-caption {
-            padding: 15px;
-            text-align: center;
-            color: #333;
-            font-size: 0.9em;
-        }
         
         .photo-slider {
             display: none;
@@ -399,17 +392,7 @@
             75% { transform: skewX(-10deg); box-shadow: 0 0 10px rgba(255, 165, 0, 0.4), 0 0 20px rgba(255, 165, 0, 0.4), 0 0 60px rgba(255, 165, 0, 0.4), 0 0 80px rgba(255, 165, 0, 0.4); }
             100% { transform: skewX(5deg); box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5); }
         }
-
-        #confettiCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 0;
-            pointer-events: none;
-        }
-
+        
         #audio-toggle {
             position: fixed;
             top: 20px;
@@ -475,13 +458,6 @@
             position: relative;
         }
         
-        .modal-header {
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
         .modal-header h2 {
             color: #000000;
             font-family: 'Montserrat', sans-serif;
@@ -505,12 +481,6 @@
             font-weight: bold;
             cursor: pointer;
         }
-
-        .close-button:hover,
-        .close-button:focus {
-            color: #000;
-            text-decoration: none;
-        }
         
         @media (max-width: 600px) {
             .photo-gallery { display: none; }
@@ -518,28 +488,18 @@
             .main-title { font-size: 10vw; }
             .wish-text { font-size: 6vw; }
             .wish-text.small { font-size: 1em; }
-            .blowing-joke { font-size: 0.7em; }
-            .action-button, .video-button, .letter-button { font-size: 1em; }
             #audio-toggle { width: 40px; height: 40px; font-size: 20px; top: 10px; right: 10px; }
             .cake { transform: scale(0.8); }
-            #volume-meter { top: 60px; right: 10px; width: 15px; height: 80px; }
-            .modal-content { padding: 20px; margin: 10% auto; }
-            .modal-header h2 { font-size: 1.5em; }
-            .modal-content p { font-size: 0.9em; }
         }
 
         @media (min-width: 601px) and (max-width: 1024px) {
             .photo-gallery {
                 column-count: 2;
             }
-            .main-title { font-size: 6vw; }
-            .wish-text { font-size: 4vw; }
-            .blowing-joke { font-size: 0.9em; }
         }
     </style>
 </head>
 <body>
-    <canvas id="confettiCanvas"></canvas>
     
     <header class="header">
         <h1 class="main-title great-vibes-regular">Happy Birthday Olena!</h1>
@@ -548,6 +508,7 @@
     <button id="audio-toggle" class="fa-solid fa-music"></button>
     <div id="volume-meter"><div id="volume-bar"></div></div>
 
+    <!-- ПОВЕРНУТО 6 ФОТОГРАФІЙ -->
     <section class="photo-gallery">
         <div class="photo-item"><img src="https://placehold.co/400x600?text=Фото+1" alt="Placeholder Photo 1"></div>
         <div class="photo-item"><img src="https://placehold.co/400x500?text=Фото+2" alt="Placeholder Photo 2"></div>
@@ -557,6 +518,7 @@
         <div class="photo-item"><img src="https://placehold.co/400x650?text=Фото+6" alt="Placeholder Photo 6"></div>
     </section>
 
+    <!-- ПОВЕРНУТО 6 ФОТОГРАФІЙ В КАРУСЕЛЬ -->
     <section class="photo-slider">
         <div class="photo-slider-wrapper">
             <div class="slider-item"><img src="https://placehold.co/400x600?text=Фото+1" alt="Placeholder Photo 1"></div>
@@ -598,7 +560,6 @@
                     <div class="drip drip1"></div>
                     <div class="drip drip2"></div>
                     <div class="drip drip3"></div>
-                    <!-- Candles -->
                     <div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div>
                 </div>
             </div>
@@ -612,12 +573,9 @@
     <div class="audio-player">
         <audio id="birthday-audio" loop>
             <source src="birthday.mp3" type="audio/mpeg" />
-            Ваш браузер не підтримує аудіо-елемент.
         </audio>
-        <!-- ВИПРАВЛЕННЯ ОПЛЕСКІВ: Крок 1 -->
         <audio id="applause-audio" preload="auto">
             <source src="applause.mp3" type="audio/mpeg" />
-            Ваш браузер не підтримує аудіо-елемент.
         </audio>
     </div>
 
@@ -627,12 +585,7 @@
             <div class="modal-header">
                 <h2 class="montserrat-font">Лист для Олени</h2>
             </div>
-            <p class="montserrat-font">
-                Дорога Олено, вітаю тебе з Днем народження! Нехай цей день буде сповнений радістю, сміхом і незабутніми моментами. Бажаю тобі безмежного щастя, міцного здоров'я та здійснення всіх твоїх найзаповітніших мрій. Ти неймовірна людина, і я дуже ціную нашу дружбу.
-            </p>
-            <p class="montserrat-font">
-                Нехай кожен твій день буде як яскраве свято, а життя дарує лише приємні сюрпризи. Залишайся такою ж щирою, доброю і життєрадісною! З Днем народження!
-            </p>
+            <p class="montserrat-font">Дорога Олено, вітаю тебе з Днем народження! Нехай цей день буде сповнений радістю, сміхом і незабутніми моментами. Бажаю тобі безмежного щастя, міцного здоров'я та здійснення всіх твоїх найзаповітніших мрій. Ти неймовірна людина, і я дуже ціную нашу дружбу.</p>
         </div>
     </div>
 
@@ -640,22 +593,20 @@
         document.addEventListener("DOMContentLoaded", function () {
             const candles = document.querySelectorAll(".cake .candle");
             const actionButton = document.getElementById("action-button");
+            const audio = document.getElementById("birthday-audio");
+            const applauseAudio = document.getElementById("applause-audio");
+            const audioToggle = document.getElementById("audio-toggle");
             const wishTextMessage = document.getElementById("wish-text-message");
             const blowingJokeText = document.getElementById("blowing-joke-text");
             const volumeMeter = document.getElementById("volume-meter");
             const volumeBar = document.getElementById("volume-bar");
             let mediaStream = null;
-            let audioContext = null;
-            let analyser = null;
-            let isBlowing = false;
 
             function calculateCandlePositions() {
                 const positions = [];
                 const centerX = 125;
                 const centerY = 47;
-                
                 positions.push({ left: centerX - 6, top: -33 });
-                
                 const innerCandleCount = 9;
                 const innerRadiusX = 50;
                 const innerRadiusY = 18;
@@ -663,7 +614,6 @@
                     const angle = (2 * Math.PI / innerCandleCount) * i - Math.PI / 2;
                     positions.push({ left: centerX + innerRadiusX * Math.cos(angle) - 6, top: centerY + innerRadiusY * Math.sin(angle) - 35 });
                 }
-                
                 const outerCandleCount = 16;
                 const outerRadiusX = 110;
                 const outerRadiusY = 40;
@@ -671,7 +621,6 @@
                     const angle = (2 * Math.PI / outerCandleCount) * i - Math.PI / 2;
                     positions.push({ left: centerX + outerRadiusX * Math.cos(angle) - 6, top: centerY + outerRadiusY * Math.sin(angle) - 35 });
                 }
-                
                 return positions;
             }
             
@@ -683,10 +632,6 @@
                     candle.style.zIndex = Math.round(candlePositions[index].top) + 50;
                 }
             });
-
-            const audio = document.getElementById("birthday-audio");
-            const applauseAudio = document.getElementById("applause-audio");
-            const audioToggle = document.getElementById("audio-toggle");
 
             function syncAudioButton() {
                 if (audio.paused) {
@@ -703,14 +648,11 @@
 
             document.addEventListener('visibilitychange', () => {
                 if (document.visibilityState === 'visible') {
-                    syncAudioButton();
+                    setTimeout(syncAudioButton, 100);
                 }
             });
 
-            audio.play().catch(e => {
-                console.log("Автоматичне відтворення заблоковано:", e);
-                syncAudioButton();
-            });
+            audio.play().catch(() => syncAudioButton());
 
             audioToggle.addEventListener("click", () => {
                 if (audio.paused) {
@@ -722,26 +664,6 @@
 
             applauseAudio.addEventListener('ended', () => {
                 audio.play();
-            });
-
-            const showVideoButton = document.getElementById('show-video-button');
-            const closeVideoButton = document.getElementById('close-video-button');
-            const videoContainer = document.getElementById('fullscreen-video-container');
-            const videoIframe = document.getElementById('fullscreen-video');
-            const videoSrc = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1";
-            
-            showVideoButton.addEventListener('click', () => {
-                videoContainer.style.display = 'flex';
-                videoIframe.src = videoSrc;
-                audio.pause();
-            });
-
-            closeVideoButton.addEventListener('click', () => {
-                videoContainer.style.display = 'none';
-                videoIframe.src = "";
-                if (applauseAudio.paused) {
-                    audio.play();
-                }
             });
             
             function shuffle(array) {
@@ -757,15 +679,15 @@
                 actionButton.disabled = true;
                 
                 navigator.mediaDevices.getUserMedia({ audio: true })
-                    .then(function(stream) {
+                    .then(stream => {
                         if (audio.paused) {
-                            audio.play().catch(e => console.log("Не вдалося відновити музику після активації мікрофона.", e));
+                            audio.play().catch(e => console.warn("Не вдалося відновити музику:", e));
                         }
                         
                         mediaStream = stream;
-                        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
                         const source = audioContext.createMediaStreamSource(stream);
-                        analyser = audioContext.createAnalyser();
+                        const analyser = audioContext.createAnalyser();
                         source.connect(analyser);
                         analyser.fftSize = 512;
                         const dataArray = new Uint8Array(analyser.frequencyBinCount);
@@ -774,14 +696,10 @@
                         actionButton.textContent = "Задувай";
                         actionButton.classList.add('instructional');
                         blowingJokeText.style.display = "block";
-                        isBlowing = true;
                         volumeMeter.style.display = "block";
                         
                         function processMicrophoneInput() {
-                            if (!isBlowing) {
-                                volumeMeter.style.display = "none";
-                                return;
-                            }
+                            if (!mediaStream) return;
                             
                             analyser.getByteFrequencyData(dataArray);
                             const volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
@@ -790,14 +708,10 @@
                             const remainingCandles = Array.from(document.querySelectorAll('.candle:not(.out)'));
                             
                             if (volume > 45 && remainingCandles.length > 0) {
-                                const volumeFactor = Math.min((volume - 45) / 50, 1);
-                                const candlesToBlowOutCount = Math.floor(volumeFactor * 5);
-                                
+                                const candlesToBlowOutCount = Math.floor(Math.min((volume - 45) / 50, 1) * 5);
                                 const shuffledCandles = shuffle(remainingCandles);
                                 for (let i = 0; i < candlesToBlowOutCount; i++) {
-                                    if (shuffledCandles[i]) {
-                                        shuffledCandles[i].classList.add('out');
-                                    }
+                                    if (shuffledCandles[i]) shuffledCandles[i].classList.add('out');
                                 }
                             }
                             
@@ -809,51 +723,35 @@
                         }
                         processMicrophoneInput();
                     })
-                    .catch(function(err) {
+                    .catch(err => {
                         console.error("Доступ до мікрофона відхилено:", err);
                         actionButton.textContent = "Доступ до мікрофона відхилено";
                         actionButton.disabled = false;
-                        blowingJokeText.style.display = "none";
-                        wishTextMessage.style.display = "block";
-                        wishTextMessage.textContent = "Щоб задути свічки, надайте дозвіл на мікрофон";
                         setTimeout(resetCandles, 5000);
                     });
             }
 
-            function triggerConfetti() {
-                const duration = 5 * 1000;
-                const animationEnd = Date.now() + duration;
-                const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
-
-                function randomInRange(min, max) {
-                    return Math.random() * (max - min) + min;
-                }
-
-                const interval = setInterval(function() {
-                    const timeLeft = animationEnd - Date.now();
-                    if (timeLeft <= 0) return clearInterval(interval);
-                    
-                    const particleCount = 50 * (timeLeft / duration);
-                    confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-                    confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-                }, 250);
-            }
-
             function finishBlowing() {
-                isBlowing = false;
                 if (mediaStream) {
                     mediaStream.getTracks().forEach(track => track.stop());
+                    mediaStream = null;
                 }
                 volumeMeter.style.display = "none";
-                audio.pause();
                 
                 triggerConfetti();
+
+                const playApplause = () => {
+                    applauseAudio.currentTime = 0;
+                    applauseAudio.play().catch(error => console.error("Помилка відтворення оплесків:", error));
+                    audio.removeEventListener('pause', playApplause);
+                };
                 
-                // --- ВИПРАВЛЕННЯ ОПЛЕСКІВ: Крок 2 і 3 ---
-                applauseAudio.currentTime = 0; // Скидаємо звук на початок
-                applauseAudio.play().catch(error => {
-                    console.error("Помилка відтворення оплесків:", error);
-                });
+                if (audio.paused) {
+                    playApplause();
+                } else {
+                    audio.addEventListener('pause', playApplause, { once: true });
+                    audio.pause();
+                }
                 
                 wishTextMessage.textContent = "Вітаємо! Нехай всі твої бажання здійснюються.";
                 wishTextMessage.classList.add('small');
@@ -864,6 +762,20 @@
                 actionButton.disabled = false;
             }
             
+            function triggerConfetti() {
+                const duration = 5 * 1000, animationEnd = Date.now() + duration;
+                const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+                const randomInRange = (min, max) => Math.random() * (max - min) + min;
+
+                const interval = setInterval(() => {
+                    const timeLeft = animationEnd - Date.now();
+                    if (timeLeft <= 0) return clearInterval(interval);
+                    const particleCount = 50 * (timeLeft / duration);
+                    confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                    confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+                }, 250);
+            }
+
             function resetCandles() {
                 candles.forEach(candle => candle.classList.remove("out"));
                 if (!applauseAudio.paused) {
@@ -878,7 +790,7 @@
             }
 
             actionButton.addEventListener("click", () => {
-                if (actionButton.textContent === "Задути свічки ще раз") {
+                if (actionButton.textContent.includes("ще раз")) {
                     resetCandles();
                 } else {
                     startCandleBlowing();
@@ -887,14 +799,29 @@
 
             const letterModal = document.getElementById("letter-modal");
             const showLetterButton = document.getElementById("show-letter-button");
-            const closeButton = document.querySelector(".close-button");
-            
+            const closeLetterButton = document.querySelector("#letter-modal .close-button");
             showLetterButton.addEventListener("click", () => letterModal.style.display = "flex");
-            closeButton.addEventListener("click", () => letterModal.style.display = "none");
+            closeLetterButton.addEventListener("click", () => letterModal.style.display = "none");
+
+            const videoContainer = document.getElementById('fullscreen-video-container');
+            const showVideoButton = document.getElementById('show-video-button');
+            const closeVideoButton = document.getElementById('close-video-button');
+            const videoIframe = document.getElementById('fullscreen-video');
+            const videoSrc = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1";
+            
+            showVideoButton.addEventListener('click', () => {
+                videoContainer.style.display = 'flex';
+                videoIframe.src = videoSrc;
+                audio.pause();
+            });
+            closeVideoButton.addEventListener('click', () => {
+                videoContainer.style.display = 'none';
+                videoIframe.src = "";
+                if (applauseAudio.paused) audio.play();
+            });
+            
             window.addEventListener("click", (event) => {
-                if (event.target === letterModal) {
-                    letterModal.style.display = "none";
-                }
+                if (event.target === letterModal) letterModal.style.display = "none";
             });
 
             syncAudioButton();
