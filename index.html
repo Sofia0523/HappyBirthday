@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Підключення бібліотеки для конфеті -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
         /* CSS classes for new fonts */
         .great-vibes-regular {
@@ -25,7 +27,11 @@
 
         body {
             margin: 0; 
-            background-color: #333; /* Fallback color */
+            background-image: url('leopard.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
             overflow-x: hidden;
             font-family: 'Montserrat', sans-serif;
             line-height: 1.6;
@@ -40,15 +46,8 @@
             left: 0;
             width: 100%;
             height: 100%;
+            background-color: rgba(0,0,0,0.5);
             z-index: -1;
-            
-            background-image: url('leopard.jpg');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            
-            /* Overlay effect using a more reliable method */
-            box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5);
         }
 
         .header {
@@ -187,7 +186,7 @@
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
-            touch-action: pan-x;
+            /* ВИДАЛЕНО: touch-action: pan-x; для виправлення скролу на мобільних */
             gap: 15px;
             padding: 0 20px;
             box-sizing: border-box;
@@ -648,7 +647,7 @@
     </div>
 
     <div class="audio-player">
-        <audio id="birthday-audio" loop autoplay>
+        <audio id="birthday-audio" loop>
             <source src="birthday.mp3" type="audio/mpeg" />
             Ваш браузер не підтримує аудіо-елемент.
         </audio>
@@ -692,10 +691,8 @@
                 const centerX = 125;
                 const centerY = 47;
                 
-                // 1. Центральна свічка
                 positions.push({ left: centerX - 6, top: -33 });
                 
-                // 2. Внутрішнє коло з 9 свічок
                 const innerCandleCount = 9;
                 const innerRadiusX = 50;
                 const innerRadiusY = 18;
@@ -706,7 +703,6 @@
                     positions.push({ left, top });
                 }
                 
-                // 3. Зовнішнє коло з 16 свічок
                 const outerCandleCount = 16;
                 const outerRadiusX = 110;
                 const outerRadiusY = 40;
@@ -735,34 +731,42 @@
             const applauseAudio = document.getElementById("applause-audio");
             const audioToggle = document.getElementById("audio-toggle");
 
-            const playPromise = audio.play();
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    audioToggle.classList.remove('fa-volume-xmark');
-                    audioToggle.classList.add('fa-music');
-                }).catch(e => {
-                    console.log("Музика не відтворилася автоматично:", e);
+            // --- ВИПРАВЛЕННЯ АУДІО ---
+            // Функція для синхронізації кнопки та стану аудіо
+            function syncAudioButton() {
+                if (audio.paused) {
                     audioToggle.classList.remove('fa-music');
                     audioToggle.classList.add('fa-volume-xmark');
+                } else {
+                    audioToggle.classList.remove('fa-volume-xmark');
+                    audioToggle.classList.add('fa-music');
+                }
+            }
+
+            // Слухачі для автоматичного оновлення кнопки
+            audio.addEventListener('play', syncAudioButton);
+            audio.addEventListener('pause', syncAudioButton);
+
+            // Спроба відтворити музику при завантаженні
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(e => {
+                    console.log("Автоматичне відтворення заблоковано браузером:", e);
+                    syncAudioButton(); // Оновити стан кнопки, якщо відтворення не вдалося
                 });
             }
 
+            // Обробник кліку на кнопку музики
             audioToggle.addEventListener("click", () => {
                 if (audio.paused) {
-                    audio.play();
-                    audioToggle.classList.remove('fa-volume-xmark');
-                    audioToggle.classList.add('fa-music');
+                    audio.play().catch(e => console.log("Не вдалося відтворити музику:", e));
                 } else {
                     audio.pause();
-                    audioToggle.classList.remove('fa-music');
-                    audioToggle.classList.add('fa-volume-xmark');
                 }
             });
 
             applauseAudio.addEventListener('ended', () => {
-                audio.play();
-                audioToggle.classList.remove('fa-volume-xmark');
-                audioToggle.classList.add('fa-music');
+                audio.play().catch(e => console.log("Не вдалося відновити музику після оплесків:", e));
             });
 
             const showVideoButton = document.getElementById('show-video-button');
@@ -780,7 +784,8 @@
             closeVideoButton.addEventListener('click', () => {
                 videoContainer.style.display = 'none';
                 videoIframe.src = "";
-                audio.play();
+                if (!applauseAudio.paused) return; // Не вмикати музику, якщо ще грають оплески
+                audio.play().catch(e => console.log("Не вдалося відновити музику:", e));
             });
             
             function shuffle(array) {
@@ -861,6 +866,28 @@
                     });
             }
 
+            // --- ДОДАВАННЯ КОНФЕТІ ---
+            function triggerConfetti() {
+                const duration = 5 * 1000; // 5 секунд
+                const animationEnd = Date.now() + duration;
+                const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+
+                function randomInRange(min, max) {
+                    return Math.random() * (max - min) + min;
+                }
+
+                const interval = setInterval(function() {
+                    const timeLeft = animationEnd - Date.now();
+                    if (timeLeft <= 0) {
+                        return clearInterval(interval);
+                    }
+                    const particleCount = 50 * (timeLeft / duration);
+                    // Запуск з двох сторін
+                    confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                    confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+                }, 250);
+            }
+
             function finishBlowing() {
                 isBlowing = false;
                 if (mediaStream) {
@@ -872,6 +899,9 @@
                 if (!audio.paused) {
                     audio.pause();
                 }
+                
+                // Запуск конфеті
+                triggerConfetti();
                 
                 applauseAudio.play().catch(e => console.log("Не вдалося відтворити оплески:", e));
                 
@@ -894,9 +924,7 @@
                     applauseAudio.currentTime = 0;
                 }
                 if (audio.paused) {
-                    audio.play();
-                    audioToggle.classList.remove('fa-volume-xmark');
-                    audioToggle.classList.add('fa-music');
+                    audio.play().catch(e => console.log("Не вдалося відновити музику:", e));
                 }
 
                 wishTextMessage.textContent = "Загадай бажання і спробуй задути";
@@ -914,7 +942,6 @@
                 }
             });
 
-            // Логіка для модального вікна
             const letterModal = document.getElementById("letter-modal");
             const showLetterButton = document.getElementById("show-letter-button");
             const closeButton = document.querySelector(".close-button");
@@ -932,6 +959,9 @@
                     letterModal.style.display = "none";
                 }
             });
+
+            // Викликати синхронізацію кнопки при завантаженні сторінки
+            syncAudioButton();
         });
     </script>
 </body>
