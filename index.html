@@ -2,22 +2,50 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>З Днем Народження 🎉</title>
+    <title>З Днем Народження</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
+        /* CSS classes for new fonts */
+        .great-vibes-regular {
+            font-family: "Great Vibes", cursive;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .montserrat-font {
+            font-family: "Montserrat", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
         body {
             margin: 0;
             background-color: transparent;
-            background-image: url('img1.png');
+            background-image: url('img2.jpg');
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
             overflow-x: hidden;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             line-height: 1.6;
+            color: #FFFFFF;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: -1;
         }
 
         .header {
@@ -28,38 +56,112 @@
 
         .main-title {
             font-size: 8vw;
-            font-family: 'Pacifico', cursive;
-            color: #a10a5b;
-            text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.6);
+            font-family: 'Great Vibes', cursive;
+            color: #FFFFFF;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
             margin-bottom: 20px;
+            padding: 10px;
+        }
+        
+        .wish-text {
+            font-family: 'Montserrat', sans-serif;
+            color: #FFD700;
+            font-size: 4vw;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+        }
+
+        .wish-text.small {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1em;
+            padding: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .blowing-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .blowing-joke {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8em;
+            color: #FFD700;
+            margin-top: 5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        /* Стилі для нейтральних кнопок */
+        .action-button,
+        .video-button,
+        .letter-button {
+            background-color: #FFFFFF;
+            color: #000000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+        
+        .action-button:hover,
+        .video-button:hover,
+        .letter-button:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .action-button:active,
+        .video-button:active,
+        .letter-button:active {
+            background-color: #e0e0e0;
+            transform: translateY(0);
+        }
+
+        .action-button.instructional {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: rgba(0, 0, 0, 0.6);
+            cursor: default;
+            pointer-events: none;
+        }
+        
+        .action-button:disabled {
+            background-color: rgba(200, 200, 200, 0.7);
+            cursor: not-allowed;
+            color: #888;
         }
 
         .photo-gallery {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            /* Masonry layout for desktop */
+            column-count: 3;
+            column-gap: 20px;
             padding: 20px;
-            gap: 20px;
+            display: block; /* Default to block for desktop */
         }
-
+        
         .photo-item {
-            width: 300px;
-            max-width: 90%;
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
             background-color: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(5px);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .photo-placeholder {
-            background-color: #ccc;
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #555;
-            font-size: 1.2em;
+        .photo-item img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
         .photo-caption {
@@ -68,28 +170,57 @@
             color: #333;
             font-size: 0.9em;
         }
+        
+        /* Слайдер-карусель для мобільних пристроїв */
+        .photo-slider {
+            display: none; /* Приховуємо на десктопі */
+            padding: 20px 0;
+            position: relative;
+            width: 100%;
+        }
+        
+        .photo-slider-wrapper {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            touch-action: pan-y;
+            gap: 15px;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
 
-        .video-button-container {
+        .slider-item {
+            flex-shrink: 0;
+            width: calc(100% - 40px);
+            max-width: 400px;
+            box-sizing: border-box;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            scroll-snap-align: center;
+        }
+        
+        .slider-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            object-fit: contain;
+        }
+
+        .video-button-container,
+        .letter-button-container {
             text-align: center;
-            padding: 30px 0;
+            padding: 10px 0;
+            margin: 0;
+        }
+        
+        .letter-button-container {
+            margin-top: 20px; /* Додаємо відступ після блоку торта */
         }
 
-        .video-button {
-            background-color: #ff69b4;
-            color: #fff;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            font-family: 'Pacifico', cursive;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease;
-        }
-
-        .video-button:hover {
-            background-color: #f04ca4;
-        }
 
         .fullscreen-video-container {
             display: none;
@@ -127,76 +258,19 @@
             align-items: center;
             z-index: 1001;
         }
-
+        
         .cake-section {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             padding-top: 50px;
-            padding-bottom: 80px;
+            padding-bottom: 20px;
         }
         
         .wish-text-container {
             margin-bottom: 20px;
             text-align: center;
-        }
-
-        .wish-text {
-            font-family: 'Pacifico', cursive;
-            color: #ff69b4;
-            font-size: 4vw;
-            margin-bottom: 10px;
-        }
-
-        .wish-text.small {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1em;
-            padding: 10px;
-        }
-        
-        .blowing-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .blowing-joke {
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.8em;
-            color: #ff69b4;
-            margin-top: 5px;
-        }
-
-        .action-button {
-            background-color: rgba(255, 105, 180, 0.7);
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            font-family: 'Poppins', sans-serif;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
-            
-            display: inline-block;
-        }
-        
-        .action-button:hover {
-            background-color: rgba(255, 105, 180, 0.9);
-        }
-        
-        .action-button.instructional {
-            background-color: rgba(255, 105, 180, 0.4);
-            color: rgba(255, 255, 255, 0.8);
-            cursor: default;
-            pointer-events: none;
-        }
-        
-        .action-button:disabled {
-            background-color: rgba(200, 200, 200, 0.7);
-            cursor: not-allowed;
         }
 
         .cake-container {
@@ -207,7 +281,7 @@
             width: 100vw;
             height: 60vh;
         }
-
+        
         .cake {
             position: relative;
             width: 250px;
@@ -225,10 +299,7 @@
             left: -10px;
             background-color: #ccc;
             border-radius: 50%;
-            box-shadow:
-                0 2px 0 #b3b3b3,
-                0 4px 0 #b3b3b3,
-                0 5px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 2px 0 #b3b3b3, 0 4px 0 #b3b3b3, 0 5px 40px rgba(0, 0, 0, 0.5);
         }
 
         .layer {
@@ -237,22 +308,7 @@
             height: 100px;
             border-radius: 50%;
             background-color: #ffc2d1;
-            box-shadow:
-                0 2px 0px #fb6f92,
-                0 4px 0px #ff8fab,
-                0 6px 0px #ff8fab,
-                0 8px 0px #ff8fab,
-                0 10px 0px #ff8fab,
-                0 12px 0px #ff8fab,
-                0 14px 0px #ff8fab,
-                0 16px 0px #ff8fab,
-                0 18px 0px #ff8fab,
-                0 20px 0px #ff8fab,
-                0 22px 0px #ff8fab,
-                0 24px 0px #ff8fab,
-                0 26px 0px #ff8fab,
-                0 28px 0px #ff8fab,
-                0 30px 0px #ff8fab;
+            box-shadow: 0 2px 0px #fb6f92, 0 4px 0px #ff8fab, 0 6px 0px #ff8fab, 0 8px 0px #ff8fab, 0 10px 0px #ff8fab, 0 12px 0px #ff8fab, 0 14px 0px #ff8fab, 0 16px 0px #ff8fab, 0 18px 0px #ff8fab, 0 20px 0px #ff8fab, 0 22px 0px #ff8fab, 0 24px 0px #ff8fab, 0 26px 0px #ff8fab, 0 28px 0px #ff8fab, 0 30px 0px #ff8fab;
         }
 
         .layer-top { top: 0; }
@@ -290,27 +346,9 @@
             background-color: #f0e4d0;
         }
 
-        .drip1 {
-            top: 53px;
-            left: 5px;
-            transform: skewY(15deg);
-            height: 48px;
-            width: 40px;
-        }
-
-        .drip2 {
-            top: 69px;
-            left: 181px;
-            transform: skewY(-15deg);
-        }
-
-        .drip3 {
-            top: 54px;
-            left: 90px;
-            width: 80px;
-            border-bottom-left-radius: 40px;
-            border-bottom-right-radius: 40px;
-        }
+        .drip1 { top: 53px; left: 5px; transform: skewY(15deg); height: 48px; width: 40px; }
+        .drip2 { top: 69px; left: 181px; transform: skewY(-15deg); }
+        .drip3 { top: 54px; left: 90px; width: 80px; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; }
 
         .candle {
             background-color: #ddce9c;
@@ -344,69 +382,21 @@
             left: 50%;
             margin-left: -7.5px;
             z-index: 10;
-            box-shadow:
-                0 0 10px rgba(255, 165, 0, 0.5),
-                0 0 20px rgba(255, 165, 0, 0.5),
-                0 0 60px rgba(255, 165, 0, 0.5),
-                0 0 80px rgba(255, 165, 0, 0.5);
+            box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5);
             transform-origin: 50% 90%;
             animation: flicker 1s ease-in-out alternate infinite;
         }
 
-        .candle.out .flame {
-            display: none;
-        }
-        
-        .candle.out {
-            background-color: #ddce9c;
-            box-shadow: none;
-        }
-        
-        .candle.out:before {
-            background-color: #666;
-        }
+        .candle.out .flame { display: none; }
+        .candle.out { background-color: #ddce9c; box-shadow: none; }
+        .candle.out:before { background-color: #666; }
 
         @keyframes flicker {
-            0% {
-                transform: skewX(5deg);
-                box-shadow:
-                    0 0 10px rgba(255, 165, 0, 0.2),
-                    0 0 20px rgba(255, 165, 0, 0.2),
-                    0 0 60px rgba(255, 165, 0, 0.2),
-                    0 0 80px rgba(255, 165, 0, 0.2);
-            }
-            25% {
-                transform: skewX(-5deg);
-                box-shadow:
-                    0 0 10px rgba(255, 165, 0, 0.5),
-                    0 0 20px rgba(255, 165, 0, 0.5),
-                    0 0 60px rgba(255, 165, 0, 0.5),
-                    0 0 80px rgba(255, 165, 0, 0.5);
-            }
-            50% {
-                transform: skewX(10deg);
-                box-shadow:
-                    0 0 10px rgba(255, 165, 0, 0.3),
-                    0 0 20px rgba(255, 165, 0, 0.3),
-                    0 0 60px rgba(255, 165, 0, 0.3),
-                    0 0 80px rgba(255, 165, 0, 0.3);
-            }
-            75% {
-                transform: skewX(-10deg);
-                box-shadow:
-                    0 0 10px rgba(255, 165, 0, 0.4),
-                    0 0 20px rgba(255, 165, 0, 0.4),
-                    0 0 60px rgba(255, 165, 0, 0.4),
-                    0 0 80px rgba(255, 165, 0, 0.4);
-            }
-            100% {
-                transform: skewX(5deg);
-                box-shadow:
-                    0 0 10px rgba(255, 165, 0, 0.5),
-                    0 0 20px rgba(255, 165, 0, 0.5),
-                    0 0 60px rgba(255, 165, 0, 0.5),
-                    0 0 80px rgba(255, 165, 0, 0.5);
-            }
+            0% { transform: skewX(5deg); box-shadow: 0 0 10px rgba(255, 165, 0, 0.2), 0 0 20px rgba(255, 165, 0, 0.2), 0 0 60px rgba(255, 165, 0, 0.2), 0 0 80px rgba(255, 165, 0, 0.2); }
+            25% { transform: skewX(-5deg); box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5); }
+            50% { transform: skewX(10deg); box-shadow: 0 0 10px rgba(255, 165, 0, 0.3), 0 0 20px rgba(255, 165, 0, 0.3), 0 0 60px rgba(255, 165, 0, 0.3), 0 0 80px rgba(255, 165, 0, 0.3); }
+            75% { transform: skewX(-10deg); box-shadow: 0 0 10px rgba(255, 165, 0, 0.4), 0 0 20px rgba(255, 165, 0, 0.4), 0 0 60px rgba(255, 165, 0, 0.4), 0 0 80px rgba(255, 165, 0, 0.4); }
+            100% { transform: skewX(5deg); box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5); }
         }
 
         #confettiCanvas {
@@ -425,8 +415,8 @@
             right: 20px;
             width: 50px;
             height: 50px;
-            background-color: #ff69b4;
-            color: #fff;
+            background-color: #FFFFFF;
+            color: #000000;
             border-radius: 50%;
             border: none;
             cursor: pointer;
@@ -458,96 +448,131 @@
             bottom: 0;
             transition: height 0.1s ease;
         }
+        
+        /* Модальне вікно для листа */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
 
+        .modal-content {
+            background-color: #FFFFFF;
+            margin: auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            max-width: 600px;
+            text-align: left;
+            position: relative;
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-header h2 {
+            color: #000000;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2em;
+            text-shadow: none;
+        }
+
+        .modal-content p {
+            color: #333333;
+            line-height: 1.8;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #000;
+            text-decoration: none;
+        }
+        
         /* Медіа-запити для адаптивності на мобільних пристроях */
         @media (max-width: 600px) {
-            .main-title {
-                font-size: 10vw;
-            }
-            .wish-text {
-                font-size: 6vw;
-            }
-            .wish-text.small {
-                font-size: 1em;
-            }
-            .blowing-joke {
-                font-size: 0.7em;
-            }
-            .photo-item {
-                width: 100%;
-                background-color: rgba(255, 255, 255, 0.8);
-            }
-            #audio-toggle {
-                width: 40px;
-                height: 40px;
-                font-size: 20px;
-                top: 10px;
-                right: 10px;
-            }
-            .cake {
-                transform: scale(0.8); 
-            }
-            #volume-meter {
-                top: 60px;
-                right: 10px;
-                width: 15px;
-                height: 80px;
-            }
+            .photo-gallery { display: none; }
+            .photo-slider { display: block; }
+            .main-title { font-size: 10vw; }
+            .wish-text { font-size: 6vw; }
+            .wish-text.small { font-size: 1em; }
+            .blowing-joke { font-size: 0.7em; }
+            .action-button, .video-button, .letter-button { font-size: 1em; }
+            #audio-toggle { width: 40px; height: 40px; font-size: 20px; top: 10px; right: 10px; }
+            .cake { transform: scale(0.8); }
+            #volume-meter { top: 60px; right: 10px; width: 15px; height: 80px; }
+            .modal-content { padding: 20px; margin: 10% auto; }
+            .modal-header h2 { font-size: 1.5em; }
+            .modal-content p { font-size: 0.9em; }
         }
 
         @media (min-width: 601px) and (max-width: 1024px) {
-            .main-title {
-                font-size: 6vw;
+            .photo-gallery {
+                column-count: 2;
             }
-            .wish-text {
-                font-size: 4vw;
-            }
-            .blowing-joke {
-                font-size: 0.9em;
-            }
-            .photo-item {
-                width: 45%;
-                background-color: rgba(255, 255, 255, 0.8);
-            }
+            .main-title { font-size: 6vw; }
+            .wish-text { font-size: 4vw; }
+            .blowing-joke { font-size: 0.9em; }
         }
     </style>
 </head>
 <body>
-    <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
     <canvas id="confettiCanvas"></canvas>
     
     <header class="header">
-        <h1 class="main-title">З Днем Народження, Лено! 🎉</h1>
+        <h1 class="main-title great-vibes-regular">Happy Birthday Olena!</h1>
     </header>
 
     <button id="audio-toggle" class="fa-solid fa-music"></button>
     <div id="volume-meter"><div id="volume-bar"></div></div>
 
+    <!-- Галерея Masonry для десктопу -->
     <section class="photo-gallery">
-        <div class="photo-item">
-            <div class="photo-placeholder">Тут буде фото</div>
-            <div class="photo-caption">Опис фотографії</div>
-        </div>
-        <div class="photo-item">
-            <div class="photo-placeholder">Тут буде фото</div>
-            <div class="photo-caption">Опис фотографії</div>
-        </div>
-        <div class="photo-item">
-            <div class="photo-placeholder">Тут буде фото</div>
-            <div class="photo-caption">Опис фотографії</div>
-        </div>
-        <div class="photo-item">
-            <div class="photo-placeholder">Тут буде фото</div>
-            <div class="photo-caption">Опис фотографії</div>
-        </div>
-        <div class="photo-item">
-            <div class="photo-placeholder">Тут буде фото</div>
-            <div class="photo-caption">Опис фотографії</div>
+        <div class="photo-item"><img src="https://placehold.co/400x600?text=Фото+1" alt="Placeholder Photo 1"></div>
+        <div class="photo-item"><img src="https://placehold.co/400x500?text=Фото+2" alt="Placeholder Photo 2"></div>
+        <div class="photo-item"><img src="https://placehold.co/400x700?text=Фото+3" alt="Placeholder Photo 3"></div>
+        <div class="photo-item"><img src="https://placehold.co/400x450?text=Фото+4" alt="Placeholder Photo 4"></div>
+        <div class="photo-item"><img src="https://placehold.co/400x550?text=Фото+5" alt="Placeholder Photo 5"></div>
+        <div class="photo-item"><img src="https://placehold.co/400x650?text=Фото+6" alt="Placeholder Photo 6"></div>
+    </section>
+
+    <!-- Слайдер-карусель для мобільного -->
+    <section class="photo-slider">
+        <div class="photo-slider-wrapper">
+            <div class="slider-item"><img src="https://placehold.co/400x600?text=Фото+1" alt="Placeholder Photo 1"></div>
+            <div class="slider-item"><img src="https://placehold.co/400x500?text=Фото+2" alt="Placeholder Photo 2"></div>
+            <div class="slider-item"><img src="https://placehold.co/400x700?text=Фото+3" alt="Placeholder Photo 3"></div>
+            <div class="slider-item"><img src="https://placehold.co/400x450?text=Фото+4" alt="Placeholder Photo 4"></div>
+            <div class="slider-item"><img src="https://placehold.co/400x550?text=Фото+5" alt="Placeholder Photo 5"></div>
+            <div class="slider-item"><img src="https://placehold.co/400x650?text=Фото+6" alt="Placeholder Photo 6"></div>
         </div>
     </section>
 
     <div class="video-button-container">
-        <button id="show-video-button" class="video-button">Перейти до відео</button>
+        <button id="show-video-button" class="video-button montserrat-font">Перейти до відео</button>
     </div>
 
     <div id="fullscreen-video-container" class="fullscreen-video-container">
@@ -558,11 +583,11 @@
     <section class="cake-section">
         <div id="candle-blowing-section">
             <div class="wish-text-container">
-                <div id="wish-text-message" class="wish-text">Загадай бажання і спробуй задути</div>
+                <div id="wish-text-message" class="wish-text montserrat-font">Загадай бажання і спробуй задути</div>
             </div>
             
             <div class="blowing-container">
-                <button id="action-button" class="action-button">Загадати бажання</button>
+                <button id="action-button" class="action-button montserrat-font">Загадати бажання</button>
                 <div id="blowing-joke-text" class="blowing-joke" style="display: none;">(Якщо зможеш хахах)</div>
             </div>
             
@@ -576,7 +601,7 @@
                     <div class="drip drip1"></div>
                     <div class="drip drip2"></div>
                     <div class="drip drip3"></div>
-                    <div class="candle"><div class="flame"></div></div>
+                    <!-- Свічки -->
                     <div class="candle"><div class="flame"></div></div>
                     <div class="candle"><div class="flame"></div></div>
                     <div class="candle"><div class="flame"></div></div>
@@ -605,83 +630,39 @@
             </div>
         </div>
     </section>
+    
+    <div class="letter-button-container">
+        <button id="show-letter-button" class="letter-button montserrat-font">Лист для Олени</button>
+    </div>
 
     <div class="audio-player">
         <audio id="birthday-audio" loop autoplay>
             <source src="birthday.mp3" type="audio/mpeg" />
-            Your browser does not support the audio element.
+            Ваш браузер не підтримує аудіо-елемент.
         </audio>
         <audio id="applause-audio">
             <source src="applause.mp3" type="audio/mpeg" />
-            Your browser does not support the audio element.
+            Ваш браузер не підтримує аудіо-елемент.
         </audio>
     </div>
 
+    <!-- Модальне вікно -->
+    <div id="letter-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div class="modal-header">
+                <h2 class="montserrat-font">Лист для Олени</h2>
+            </div>
+            <p class="montserrat-font">
+                Дорога Олено, вітаю тебе з Днем народження! Нехай цей день буде сповнений радістю, сміхом і незабутніми моментами. Бажаю тобі безмежного щастя, міцного здоров'я та здійснення всіх твоїх найзаповітніших мрій. Ти неймовірна людина, і я дуже ціную нашу дружбу.
+            </p>
+            <p class="montserrat-font">
+                Нехай кожен твій день буде як яскраве свято, а життя дарує лише приємні сюрпризи. Залишайся такою ж щирою, доброю і життєрадісною! З Днем народження!
+            </p>
+        </div>
+    </div>
+
     <script>
-        // Ініціалізація Twemoji
-        window.onload = function() {
-            twemoji.parse(document.body, {
-                folder: 'svg',
-                ext: '.svg'
-            });
-        };
-    
-        const canvas = document.getElementById("confettiCanvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const confettiCount = 150;
-        const confetti = [];
-        const colors = ["#ff4081", "#ffd740", "#69f0ae", "#40c4ff", "#ff80ab"];
-
-        for (let i = 0; i < confettiCount; i++) {
-            confetti.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                r: Math.random() * 6 + 4,
-                d: Math.random() * confettiCount,
-                color: colors[Math.floor(Math.random() * colors.length)],
-                tilt: Math.floor(Math.random() * 10) - 10,
-                tiltAngleIncremental: Math.random() * 0.07 + 0.05,
-                tiltAngle: 0
-            });
-        }
-
-        function drawConfetti() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < confettiCount; i++) {
-                const c = confetti[i];
-                ctx.beginPath();
-                ctx.lineWidth = c.r / 2;
-                ctx.strokeStyle = c.color;
-                ctx.moveTo(c.x + c.tilt + c.r / 4, c.y);
-                ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r / 4);
-                ctx.stroke();
-            }
-            updateConfetti();
-        }
-
-        function updateConfetti() {
-            for (let i = 0; i < confettiCount; i++) {
-                const c = confetti[i];
-                c.tiltAngle += c.tiltAngleIncremental;
-                c.y += (Math.cos(c.d) + 3 + c.r / 2) / 2;
-                c.x += Math.sin(c.d);
-                c.tilt = Math.sin(c.tiltAngle) * 15;
-
-                if (c.y > canvas.height) {
-                    c.y = -10;
-                    c.x = Math.random() * canvas.width;
-                }
-            }
-        }
-
-        (function animateConfetti() {
-            requestAnimationFrame(animateConfetti);
-            drawConfetti();
-        })();
-
         document.addEventListener("DOMContentLoaded", function () {
             const candles = document.querySelectorAll(".cake .candle");
             const actionButton = document.getElementById("action-button");
@@ -692,7 +673,6 @@
             let mediaStream = null;
             let audioContext = null;
             let analyser = null;
-            
             let isBlowing = false;
 
             function calculateCandlePositions() {
@@ -817,8 +797,8 @@
                         isBlowing = true;
                         volumeMeter.style.display = "block";
                         
-                        const minVolumeThreshold = 45; // Ще більше зменшений поріг гучності
-                        const maxCandlesToBlow = 5;    // Кількість свічок за раз
+                        const minVolumeThreshold = 45;
+                        const maxCandlesToBlow = 5;
                         
                         function processMicrophoneInput() {
                             if (!isBlowing) {
@@ -916,6 +896,25 @@
                     resetCandles();
                 } else {
                     startCandleBlowing();
+                }
+            });
+
+            // Логіка для модального вікна
+            const letterModal = document.getElementById("letter-modal");
+            const showLetterButton = document.getElementById("show-letter-button");
+            const closeButton = document.querySelector(".close-button");
+            
+            showLetterButton.addEventListener("click", () => {
+                letterModal.style.display = "flex";
+            });
+
+            closeButton.addEventListener("click", () => {
+                letterModal.style.display = "none";
+            });
+
+            window.addEventListener("click", (event) => {
+                if (event.target === letterModal) {
+                    letterModal.style.display = "none";
                 }
             });
         });
