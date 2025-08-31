@@ -1,810 +1,1256 @@
 <!DOCTYPE html>
 <html lang="uk">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>З Днем Народження</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        body {
-            margin: 0; 
-            background-color: #333;
-            overflow-x: hidden;
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1.6;
-            color: #FFFFFF;
-            position: relative;
-        }
+      body {
+        margin: 0;
+        background-color: #333;
+        overflow-x: hidden;
+        font-family: "Montserrat", sans-serif;
+        line-height: 1.6;
+        color: #ffffff;
+        position: relative;
+      }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background-image: url('leopard.jpg');
-            background-size: cover;
-            background-position: center center;
-            box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5);
-        }
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background-image: url("leopard.jpg");
+        background-size: cover;
+        background-position: center center;
+        box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5);
+      }
 
-        .great-vibes-regular {
-            font-family: "Great Vibes", cursive;
-            font-weight: 400;
-            font-style: normal;
-        }
+      .great-vibes-regular {
+        font-family: "Great Vibes", cursive;
+        font-weight: 400;
+        font-style: normal;
+      }
 
-        .montserrat-font {
-            font-family: "Montserrat", sans-serif;
-            font-weight: 400;
-            font-style: normal;
-        }
+      .montserrat-font {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
 
-        .header {
-            text-align: center;
-            padding: 20px;
-            position: relative;
-        }
+      .header {
+        text-align: center;
+        padding: 20px;
+        position: relative;
+      }
 
-        .main-title {
-            font-size: 8vw;
-            font-family: 'Great Vibes', cursive;
-            color: #FFFFFF;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
-            margin-bottom: 20px;
-            padding: 10px;
-        }
-        
-        .wish-text {
-            font-family: 'Montserrat', sans-serif;
-            color: #FFD700;
-            font-size: 4vw;
-            margin-bottom: 10px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-        }
+      .main-title {
+        font-size: 8vw;
+        font-family: "Great Vibes", cursive;
+        color: #ffffff;
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+        margin-bottom: 20px;
+        padding: 10px;
+      }
 
-        .wish-text.small {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1em;
-            padding: 10px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-        
-        .blowing-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+      .wish-text {
+        font-family: "Montserrat", sans-serif;
+        color: #ffd700;
+        font-size: 4vw;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+      }
 
-        .blowing-joke {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.8em;
-            color: #FFD700;
-            margin-top: 5px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-        
-        .action-button,
-        .video-button,
-        .letter-button {
-            background-color: #FFFFFF;
-            color: #000000;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            font-family: 'Montserrat', sans-serif;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: bold;
-        }
-        
-        .action-button:hover,
-        .video-button:hover,
-        .letter-button:hover {
-            background-color: #f0f0f0;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-        
-        .action-button:active,
-        .video-button:active,
-        .letter-button:active {
-            background-color: #e0e0e0;
-            transform: translateY(0);
-        }
+      .wish-text.small {
+        font-family: "Montserrat", sans-serif;
+        font-size: 1em;
+        padding: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
 
-        .action-button.instructional {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: #000000; 
-            cursor: default;
-            pointer-events: none;
-        }
-        
-        .action-button:disabled {
-            background-color: rgba(200, 200, 200, 0.7);
-            cursor: not-allowed;
-            color: #000000;
-        }
+      .blowing-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
+      .blowing-joke {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.8em;
+        color: #ffd700;
+        margin-top: 5px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      .action-button,
+      .video-button,
+      .letter-button {
+        background-color: #ffffff;
+        color: #000000;
+        border: none;
+        padding: 15px 30px;
+        font-size: 1.2em;
+        font-family: "Montserrat", sans-serif;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: bold;
+      }
+
+      .action-button:hover,
+      .video-button:hover,
+      .letter-button:hover {
+        background-color: #f0f0f0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      .action-button:active,
+      .video-button:active,
+      .letter-button:active {
+        background-color: #e0e0e0;
+        transform: translateY(0);
+      }
+
+      .action-button.instructional {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #000000;
+        cursor: default;
+        pointer-events: none;
+      }
+
+      .action-button:disabled {
+        background-color: rgba(200, 200, 200, 0.7);
+        cursor: not-allowed;
+        color: #000000;
+      }
+
+      .photo-gallery {
+        column-count: 3;
+        column-gap: 20px;
+        padding: 20px;
+        display: block;
+      }
+
+      .photo-item {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(5px);
+      }
+
+      .photo-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .photo-slider {
+        display: none;
+        padding: 20px 0;
+        position: relative;
+        width: 100%;
+      }
+
+      .photo-slider-wrapper {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 15px;
+        padding: 0 20px;
+        box-sizing: border-box;
+      }
+
+      .slider-item {
+        flex-shrink: 0;
+        width: calc(100% - 40px);
+        max-width: 400px;
+        box-sizing: border-box;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+
+        scroll-snap-align: center;
+        height: 65vh;
+        max-height: 500px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .slider-item img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        border-radius: 15px;
+        object-fit: contain;
+      }
+
+      .video-button-container,
+      .letter-button-container {
+        text-align: center;
+        padding: 10px 0;
+        margin: 0;
+      }
+
+      .letter-button-container {
+        margin-top: 20px;
+      }
+
+      .fullscreen-video-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .fullscreen-video {
+        width: 90%;
+        max-width: 800px;
+        height: auto;
+      }
+
+      .close-video-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        color: #fff;
+        font-size: 2em;
+        cursor: pointer;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1001;
+      }
+
+      .cake-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-top: 50px;
+        padding-bottom: 20px;
+      }
+
+      .wish-text-container {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .cake-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 60vh;
+      }
+
+      .cake {
+        position: relative;
+        width: 250px;
+        height: 200px;
+      }
+
+      .cake > * {
+        position: absolute;
+      }
+
+      .plate {
+        width: 270px;
+        height: 110px;
+        bottom: -10px;
+        left: -10px;
+        background-color: #ccc;
+        border-radius: 50%;
+        box-shadow: 0 2px 0 #b3b3b3, 0 4px 0 #b3b3b3,
+          0 5px 40px rgba(0, 0, 0, 0.5);
+      }
+
+      .layer {
+        display: block;
+        width: 250px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: #ffc2d1;
+        box-shadow: 0 2px 0px #fb6f92, 0 4px 0px #ff8fab, 0 6px 0px #ff8fab,
+          0 8px 0px #ff8fab, 0 10px 0px #ff8fab, 0 12px 0px #ff8fab,
+          0 14px 0px #ff8fab, 0 16px 0px #ff8fab, 0 18px 0px #ff8fab,
+          0 20px 0px #ff8fab, 0 22px 0px #ff8fab, 0 24px 0px #ff8fab,
+          0 26px 0px #ff8fab, 0 28px 0px #ff8fab, 0 30px 0px #ff8fab;
+      }
+
+      .layer-top {
+        top: 0;
+      }
+      .layer-middle {
+        top: 33px;
+      }
+      .layer-bottom {
+        top: 66px;
+      }
+
+      .icing {
+        top: 2px;
+        left: 5px;
+        background-color: #f0e4d0;
+        width: 240px;
+        height: 90px;
+        border-radius: 50%;
+      }
+
+      .icing:before {
+        content: "";
+        position: absolute;
+        top: 4px;
+        right: 5px;
+        bottom: 6px;
+        left: 5px;
+        background-color: #f4ebdc;
+        box-shadow: 0 0 4px #f6efe3, 0 0 4px #f6efe3, 0 0 4px #f6efe3;
+        border-radius: 50%;
+        z-index: 1;
+      }
+
+      .drip {
+        display: block;
+        width: 50px;
+        height: 60px;
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+        background-color: #f0e4d0;
+      }
+
+      .drip1 {
+        top: 53px;
+        left: 5px;
+        transform: skewY(15deg);
+        height: 48px;
+        width: 40px;
+      }
+      .drip2 {
+        top: 69px;
+        left: 181px;
+        transform: skewY(-15deg);
+      }
+      .drip3 {
+        top: 54px;
+        left: 90px;
+        width: 80px;
+        border-bottom-left-radius: 40px;
+        border-bottom-right-radius: 40px;
+      }
+
+      .candle {
+        background-color: #ddce9c;
+        width: 12px;
+        height: 35px;
+        border-radius: 6px/3px;
+        position: absolute;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+      }
+
+      .candle:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 12px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: #e8e5a4;
+        transition: background-color 0.5s ease;
+      }
+
+      .flame {
+        position: absolute;
+        background-color: orange;
+        width: 10px;
+        height: 25px;
+        border-radius: 8px 8px 8px 8px/20px 20px 8px 8px;
+        top: -34px;
+        left: 50%;
+        margin-left: -7.5px;
+        z-index: 10;
+        box-shadow: 0 0 10px rgba(255, 165, 0, 0.5),
+          0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5),
+          0 0 80px rgba(255, 165, 0, 0.5);
+        transform-origin: 50% 90%;
+        animation: flicker 1s ease-in-out alternate infinite;
+      }
+
+      .candle.out .flame {
+        display: none;
+      }
+      .candle.out {
+        background-color: #ddce9c;
+        box-shadow: none;
+      }
+      .candle.out:before {
+        background-color: #666;
+      }
+
+      @keyframes flicker {
+        0% {
+          transform: skewX(5deg);
+          box-shadow: 0 0 10px rgba(255, 165, 0, 0.2),
+            0 0 20px rgba(255, 165, 0, 0.2), 0 0 60px rgba(255, 165, 0, 0.2),
+            0 0 80px rgba(255, 165, 0, 0.2);
+        }
+        25% {
+          transform: skewX(-5deg);
+          box-shadow: 0 0 10px rgba(255, 165, 0, 0.5),
+            0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5),
+            0 0 80px rgba(255, 165, 0, 0.5);
+        }
+        50% {
+          transform: skewX(10deg);
+          box-shadow: 0 0 10px rgba(255, 165, 0, 0.3),
+            0 0 20px rgba(255, 165, 0, 0.3), 0 0 60px rgba(255, 165, 0, 0.3),
+            0 0 80px rgba(255, 165, 0, 0.3);
+        }
+        75% {
+          transform: skewX(-10deg);
+          box-shadow: 0 0 10px rgba(255, 165, 0, 0.4),
+            0 0 20px rgba(255, 165, 0, 0.4), 0 0 60px rgba(255, 165, 0, 0.4),
+            0 0 80px rgba(255, 165, 0, 0.4);
+        }
+        100% {
+          transform: skewX(5deg);
+          box-shadow: 0 0 10px rgba(255, 165, 0, 0.5),
+            0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5),
+            0 0 80px rgba(255, 165, 0, 0.5);
+        }
+      }
+
+      #audio-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background-color: #ffffff;
+        color: #000000;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        z-index: 100;
+      }
+
+      #volume-meter {
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        width: 20px;
+        height: 100px;
+        background-color: #eee;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #ccc;
+        display: none;
+      }
+
+      #volume-bar {
+        width: 100%;
+        background-color: #ff69b4;
+        position: absolute;
+        bottom: 0;
+        transition: height 0.1s ease;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        max-width: 600px;
+        text-align: left;
+        position: relative;
+      }
+
+      .modal-header h2 {
+        color: #000000;
+        font-family: "Montserrat", sans-serif;
+        font-size: 2em;
+        text-shadow: none;
+      }
+
+      .modal-content p {
+        color: #333333;
+        line-height: 1.8;
+        font-size: 1.1em;
+        margin-bottom: 15px;
+      }
+
+      .close-button {
+        color: #aaa;
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      @media (max-width: 600px) {
         .photo-gallery {
-            column-count: 3;
-            column-gap: 20px;
-            padding: 20px;
-            display: block;
+          display: none;
         }
-        
-        .photo-item {
-            display: inline-block;
-            width: 100%;
-            margin-bottom: 20px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            background-color: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(5px);
-        }
-
-        .photo-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        
         .photo-slider {
-            display: none;
-            padding: 20px 0;
-            position: relative;
-            width: 100%;
+          display: block;
         }
-        
-        .photo-slider-wrapper {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            gap: 15px;
-            padding: 0 20px;
-            box-sizing: border-box;
+        .main-title {
+          font-size: 10vw;
         }
-
-        .slider-item {
-            flex-shrink: 0;
-            width: calc(100% - 40px);
-            max-width: 400px;
-            box-sizing: border-box;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            background-color: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(5px);
-            scroll-snap-align: center;
-            height: 65vh;
-            max-height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .wish-text {
+          font-size: 6vw;
         }
-        
-        .slider-item img {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            border-radius: 15px;
-            object-fit: contain;
+        .wish-text.small {
+          font-size: 1em;
         }
-
-        .video-button-container,
-        .letter-button-container {
-            text-align: center;
-            padding: 10px 0;
-            margin: 0;
-        }
-        
-        .letter-button-container {
-            margin-top: 20px;
-        }
-
-        .fullscreen-video-container {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .fullscreen-video {
-            width: 90%;
-            max-width: 800px;
-            height: auto;
-        }
-
-        .close-video-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border: none;
-            color: #fff;
-            font-size: 2em;
-            cursor: pointer;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1001;
-        }
-        
-        .cake-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding-top: 50px;
-            padding-bottom: 20px;
-        }
-        
-        .wish-text-container {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .cake-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100vw;
-            height: 60vh;
-        }
-        
-        .cake {
-            position: relative;
-            width: 250px;
-            height: 200px;
-        }
-        
-        .cake > * {
-            position: absolute;
-        }
-
-        .plate {
-            width: 270px;
-            height: 110px;
-            bottom: -10px;
-            left: -10px;
-            background-color: #ccc;
-            border-radius: 50%;
-            box-shadow: 0 2px 0 #b3b3b3, 0 4px 0 #b3b3b3, 0 5px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .layer {
-            display: block;
-            width: 250px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: #ffc2d1;
-            box-shadow: 0 2px 0px #fb6f92, 0 4px 0px #ff8fab, 0 6px 0px #ff8fab, 0 8px 0px #ff8fab, 0 10px 0px #ff8fab, 0 12px 0px #ff8fab, 0 14px 0px #ff8fab, 0 16px 0px #ff8fab, 0 18px 0px #ff8fab, 0 20px 0px #ff8fab, 0 22px 0px #ff8fab, 0 24px 0px #ff8fab, 0 26px 0px #ff8fab, 0 28px 0px #ff8fab, 0 30px 0px #ff8fab;
-        }
-
-        .layer-top { top: 0; }
-        .layer-middle { top: 33px; }
-        .layer-bottom { top: 66px; }
-
-        .icing {
-            top: 2px;
-            left: 5px;
-            background-color: #f0e4d0;
-            width: 240px;
-            height: 90px;
-            border-radius: 50%;
-        }
-
-        .icing:before {
-            content: "";
-            position: absolute;
-            top: 4px;
-            right: 5px;
-            bottom: 6px;
-            left: 5px;
-            background-color: #f4ebdc;
-            box-shadow: 0 0 4px #f6efe3, 0 0 4px #f6efe3, 0 0 4px #f6efe3;
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        .drip {
-            display: block;
-            width: 50px;
-            height: 60px;
-            border-bottom-left-radius: 25px;
-            border-bottom-right-radius: 25px;
-            background-color: #f0e4d0;
-        }
-
-        .drip1 { top: 53px; left: 5px; transform: skewY(15deg); height: 48px; width: 40px; }
-        .drip2 { top: 69px; left: 181px; transform: skewY(-15deg); }
-        .drip3 { top: 54px; left: 90px; width: 80px; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; }
-
-        .candle {
-            background-color: #ddce9c;
-            width: 12px;
-            height: 35px;
-            border-radius: 6px/3px;
-            position: absolute;
-            box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
-            z-index: 10;
-        }
-
-        .candle:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 12px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: #e8e5a4;
-            transition: background-color 0.5s ease;
-        }
-
-        .flame {
-            position: absolute;
-            background-color: orange;
-            width: 10px;
-            height: 25px;
-            border-radius: 8px 8px 8px 8px/20px 20px 8px 8px;
-            top: -34px;
-            left: 50%;
-            margin-left: -7.5px;
-            z-index: 10;
-            box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5);
-            transform-origin: 50% 90%;
-            animation: flicker 1s ease-in-out alternate infinite;
-        }
-
-        .candle.out .flame { display: none; }
-        .candle.out { background-color: #ddce9c; box-shadow: none; }
-        .candle.out:before { background-color: #666; }
-
-        @keyframes flicker {
-            0% { transform: skewX(5deg); box-shadow: 0 0 10px rgba(255, 165, 0, 0.2), 0 0 20px rgba(255, 165, 0, 0.2), 0 0 60px rgba(255, 165, 0, 0.2), 0 0 80px rgba(255, 165, 0, 0.2); }
-            25% { transform: skewX(-5deg); box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5); }
-            50% { transform: skewX(10deg); box-shadow: 0 0 10px rgba(255, 165, 0, 0.3), 0 0 20px rgba(255, 165, 0, 0.3), 0 0 60px rgba(255, 165, 0, 0.3), 0 0 80px rgba(255, 165, 0, 0.3); }
-            75% { transform: skewX(-10deg); box-shadow: 0 0 10px rgba(255, 165, 0, 0.4), 0 0 20px rgba(255, 165, 0, 0.4), 0 0 60px rgba(255, 165, 0, 0.4), 0 0 80px rgba(255, 165, 0, 0.4); }
-            100% { transform: skewX(5deg); box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5); }
-        }
-        
         #audio-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background-color: #FFFFFF;
-            color: #000000;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            z-index: 100;
+          width: 40px;
+          height: 40px;
+          font-size: 20px;
+          top: 10px;
+          right: 10px;
         }
+        .cake {
+          transform: scale(0.8);
+        }
+      }
 
-        #volume-meter {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            width: 20px;
-            height: 100px;
-            background-color: #eee;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid #ccc;
-            display: none;
+      @media (min-width: 601px) and (max-width: 1024px) {
+        .photo-gallery {
+          column-count: 2;
         }
+      }
+      /* ✨ Sparkle stars */
+      .sparkle {
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        pointer-events: none;
+        opacity: 0;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g fill='white'><path d='M12 2c.6 2.7 3.3 5.4 6 6-2.7.6-5.4 3.3-6 6-.6-2.7-3.3-5.4-6-6 2.7-.6 5.4-3.3 6-6Z'/></g></svg>");
+        background-size: contain;
+        background-repeat: no-repeat;
+        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.9));
+        animation: sparkle-pop 1.8s ease-in-out forwards;
+      }
+      @keyframes sparkle-pop {
+        0% {
+          transform: scale(0.4) rotate(0deg);
+          opacity: 0;
+        }
+        40% {
+          opacity: 1;
+        }
+        60% {
+          transform: scale(1.1) rotate(15deg);
+        }
+        100% {
+          transform: scale(0.4) rotate(30deg);
+          opacity: 0;
+        }
+      }
 
-        #volume-bar {
-            width: 100%;
-            background-color: #ff69b4;
-            position: absolute;
-            bottom: 0;
-            transition: height 0.1s ease;
+      /* 🪄 Magical cursor trail */
+      .cursor-particle {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0.9;
+        transform: translate(-50%, -50%) scale(1);
+        animation: particle-fade 900ms ease-out forwards;
+        will-change: transform, opacity;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 1) 0%,
+          rgba(255, 255, 255, 0.6) 60%,
+          rgba(255, 255, 255, 0) 70%
+        );
+      }
+      @keyframes particle-fade {
+        to {
+          transform: translate(-50%, -80%) scale(0);
+          opacity: 0;
         }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.4);
-            justify-content: center;
-            align-items: center;
-        }
+      }
 
-        .modal-content {
-            background-color: #FFFFFF;
-            margin: auto;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            max-width: 600px;
-            text-align: left;
-            position: relative;
-        }
-        
-        .modal-header h2 {
-            color: #000000;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2em;
-            text-shadow: none;
-        }
-
-        .modal-content p {
-            color: #333333;
-            line-height: 1.8;
-            font-size: 1.1em;
-            margin-bottom: 15px;
-        }
-
-        .close-button {
-            color: #aaa;
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        
-        @media (max-width: 600px) {
-            .photo-gallery { display: none; }
-            .photo-slider { display: block; }
-            .main-title { font-size: 10vw; }
-            .wish-text { font-size: 6vw; }
-            .wish-text.small { font-size: 1em; }
-            #audio-toggle { width: 40px; height: 40px; font-size: 20px; top: 10px; right: 10px; }
-            .cake { transform: scale(0.8); }
-        }
-
-        @media (min-width: 601px) and (max-width: 1024px) {
-            .photo-gallery {
-                column-count: 2;
-            }
-        }
+      .extra-section {
+        text-align: center;
+        padding: 48px 16px 72px;
+      }
+      .extra-section .action-button {
+        background: #ffffff;
+        color: #111;
+        padding: 14px 24px;
+        border: none;
+        border-radius: 10px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      .extra-section .action-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+      }
+      #gift-box img {
+        max-width: 320px;
+        width: 100%;
+        border-radius: 14px;
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+      }
+      
+      .gift-hint {
+        color: gold;
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 12px 0;
+        text-shadow: 0 0 6px rgba(255, 215, 0, 0.7);
+      }
+      h3{
+        color:#000000;
+      }
     </style>
-</head>
-<body>
-    
+  </head>
+  <body>
     <header class="header">
-        <h1 class="main-title great-vibes-regular">Happy Birthday Olena!</h1>
+      <h1 class="main-title great-vibes-regular">Happy Birthday Olena!</h1>
     </header>
 
     <button id="audio-toggle" class="fa-solid fa-music"></button>
     <div id="volume-meter"><div id="volume-bar"></div></div>
 
-    <!-- ПОВЕРНУТО 6 ФОТОГРАФІЙ -->
     <section class="photo-gallery">
-        <div class="photo-item"><img src="https://placehold.co/400x600?text=Фото+1" alt="Placeholder Photo 1"></div>
-        <div class="photo-item"><img src="https://placehold.co/400x500?text=Фото+2" alt="Placeholder Photo 2"></div>
-        <div class="photo-item"><img src="https://placehold.co/400x700?text=Фото+3" alt="Placeholder Photo 3"></div>
-        <div class="photo-item"><img src="https://placehold.co/400x450?text=Фото+4" alt="Placeholder Photo 4"></div>
-        <div class="photo-item"><img src="https://placehold.co/400x550?text=Фото+5" alt="Placeholder Photo 5"></div>
-        <div class="photo-item"><img src="https://placehold.co/400x650?text=Фото+6" alt="Placeholder Photo 6"></div>
-    </section>
+  <div class="photo-item">
+    <img src="img1.jpg" alt="Placeholder Photo 1" />
+  </div>
+  <div class="photo-item">
+    <img src="img2.jpg" alt="Placeholder Photo 2" />
+  </div>
+  <div class="photo-item">
+    <img src="img3.jpg" alt="Placeholder Photo 3" />
+  </div>
+  <div class="photo-item">
+    <img src="img4.jpg" alt="Placeholder Photo 4" />
+  </div>
+  <div class="photo-item">
+    <img src="img5.jpg" alt="Placeholder Photo 5" />
+  </div>
+  <div class="photo-item">
+    <img src="img6.jpg" alt="Placeholder Photo 6" />
+  </div>
+  <div class="photo-item">
+    <img src="img7.jpg" alt="Placeholder Photo 7" />
+  </div>
+  <div class="photo-item">
+    <img src="img8.jpg" alt="Placeholder Photo 8" />
+  </div>
+  <div class="photo-item">
+    <img src="img9.jpg" alt="Placeholder Photo 9" />
+  </div>
+  <div class="photo-item">
+    <img src="img10.jpg" alt="Placeholder Photo 10" />
+  </div>
+  <div class="photo-item">
+    <img src="img11.jpg" alt="Placeholder Photo 11" />
+  </div>
+</section>
 
-    <!-- ПОВЕРНУТО 6 ФОТОГРАФІЙ В КАРУСЕЛЬ -->
-    <section class="photo-slider">
-        <div class="photo-slider-wrapper">
-            <div class="slider-item"><img src="https://placehold.co/400x600?text=Фото+1" alt="Placeholder Photo 1"></div>
-            <div class="slider-item"><img src="https://placehold.co/400x500?text=Фото+2" alt="Placeholder Photo 2"></div>
-            <div class="slider-item"><img src="https://placehold.co/400x700?text=Фото+3" alt="Placeholder Photo 3"></div>
-            <div class="slider-item"><img src="https://placehold.co/400x450?text=Фото+4" alt="Placeholder Photo 4"></div>
-            <div class="slider-item"><img src="https://placehold.co/400x550?text=Фото+5" alt="Placeholder Photo 5"></div>
-            <div class="slider-item"><img src="https://placehold.co/400x650?text=Фото+6" alt="Placeholder Photo 6"></div>
-        </div>
-    </section>
+<!-- ПОВЕРНУТО 11 ФОТОГРАФІЙ В КАРУСЕЛЬ -->
+<section class="photo-slider">
+  <div class="photo-slider-wrapper">
+    <div class="slider-item">
+      <img src="img1.jpg" alt="Placeholder Photo 1" />
+    </div>
+    <div class="slider-item">
+      <img src="img2.jpg" alt="Placeholder Photo 2" />
+    </div>
+    <div class="slider-item">
+      <img src="img3.jpg" alt="Placeholder Photo 3" />
+    </div>
+    <div class="slider-item">
+      <img src="img4.jpg" alt="Placeholder Photo 4" />
+    </div>
+    <div class="slider-item">
+      <img src="img5.jpg" alt="Placeholder Photo 5" />
+    </div>
+    <div class="slider-item">
+      <img src="img6.jpg" alt="Placeholder Photo 6" />
+    </div>
+    <div class="slider-item">
+      <img src="img7.jpg" alt="Placeholder Photo 7" />
+    </div>
+    <div class="slider-item">
+      <img src="img8.jpg" alt="Placeholder Photo 8" />
+    </div>
+    <div class="slider-item">
+      <img src="img9.jpg" alt="Placeholder Photo 9" />
+    </div>
+    <div class="slider-item">
+      <img src="img10.jpg" alt="Placeholder Photo 10" />
+    </div>
+    <div class="slider-item">
+      <img src="img11.jpg" alt="Placeholder Photo 11" />
+    </div>
+  </div>
+</section>
 
     <div class="video-button-container">
-        <button id="show-video-button" class="video-button montserrat-font">Перейти до відео</button>
+      <button id="show-video-button" class="video-button montserrat-font">
+        Відосік))))
+      </button>
     </div>
 
     <div id="fullscreen-video-container" class="fullscreen-video-container">
-        <button id="close-video-button" class="close-video-button">×</button>
-        <iframe id="fullscreen-video" class="fullscreen-video" frameborder="0" allowfullscreen></iframe>
+      <button id="close-video-button" class="close-video-button">×</button>
+      <iframe
+        id="fullscreen-video"
+        class="fullscreen-video"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
     </div>
 
     <section class="cake-section">
-        <div id="candle-blowing-section">
-            <div class="wish-text-container">
-                <div id="wish-text-message" class="wish-text montserrat-font">Загадай бажання і спробуй задути</div>
-            </div>
-            
-            <div class="blowing-container">
-                <button id="action-button" class="action-button montserrat-font">Загадати бажання</button>
-                <div id="blowing-joke-text" class="blowing-joke" style="display: none;">(Якщо зможеш хахах)</div>
-            </div>
-            
-            <div class="cake-container">
-                <div class="cake">
-                    <div class="plate"></div>
-                    <div class="layer layer-bottom"></div>
-                    <div class="layer layer-middle"></div>
-                    <div class="layer layer-top"></div>
-                    <div class="icing"></div>
-                    <div class="drip drip1"></div>
-                    <div class="drip drip2"></div>
-                    <div class="drip drip3"></div>
-                    <div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div>
-                </div>
-            </div>
+      <div id="candle-blowing-section">
+        <div class="wish-text-container">
+          <div id="wish-text-message" class="wish-text montserrat-font">
+            Загадай бажання і спробуй задути
+          </div>
         </div>
+
+        <div class="blowing-container">
+          <button id="action-button" class="action-button montserrat-font">
+            Загадати бажання
+          </button>
+          <div
+            id="blowing-joke-text"
+            class="blowing-joke"
+            style="display: none"
+          >
+            (Якщо зможеш хахах)
+          </div>
+        </div>
+
+        <div class="cake-container">
+          <div class="cake">
+            <div class="plate"></div>
+            <div class="layer layer-bottom"></div>
+            <div class="layer layer-middle"></div>
+            <div class="layer layer-top"></div>
+            <div class="icing"></div>
+            <div class="drip drip1"></div>
+            <div class="drip drip2"></div>
+            <div class="drip drip3"></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+          </div>
+        </div>
+      </div>
     </section>
-    
+
     <div class="letter-button-container">
-        <button id="show-letter-button" class="letter-button montserrat-font">Лист для Олени</button>
+      <button id="show-letter-button" class="letter-button montserrat-font">
+        Лист для Оленки
+      </button>
+    </div>
+
+    <div class="extra-section" id="extra-section">
+      <button id="gift-button" class="action-button">Сюрпрайз</button>
+
+      <!-- текст, який з’явиться після першого кліку -->
+      <p id="gift-hint" class="gift-hint" style="display: none">
+        Клацай багато разів ✨
+      </p>
+
+      <div id="gift-box" style="display: none; margin-top: 18px">
+        <img id="gift-image" src="" alt="gift" />
+      </div>
     </div>
 
     <div class="audio-player">
-        <audio id="birthday-audio" loop>
-            <source src="birthday.mp3" type="audio/mpeg" />
-        </audio>
-        <audio id="applause-audio" preload="auto">
-            <source src="applause.mp3" type="audio/mpeg" />
-        </audio>
+      <audio id="birthday-audio" loop>
+        <source src="birthday.mp3" type="audio/mpeg" />
+      </audio>
+      <audio id="applause-audio" preload="auto">
+        <source src="applause.mp3" type="audio/mpeg" />
+      </audio>
     </div>
 
     <div id="letter-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <div class="modal-header">
-                <h2 class="montserrat-font">Лист для Олени</h2>
-            </div>
-            <p class="montserrat-font">Дорога Олено, вітаю тебе з Днем народження! Нехай цей день буде сповнений радістю, сміхом і незабутніми моментами. Бажаю тобі безмежного щастя, міцного здоров'я та здійснення всіх твоїх найзаповітніших мрій. Ти неймовірна людина, і я дуже ціную нашу дружбу.</p>
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <div class="modal-header">
+          <h2 class="montserrat-font">Лист для Оленки</h2>
         </div>
+        <h3 class="montserrat-font"> З ДНЕМ НАРОДЖЕННЯ СІС!!</h3>
+        <p class="montserrat-font">
+         Сьогодні прекрасний день, діти йдуть до школи,
+          офісні працівники дивляться як діти йдуть до школи, а ми хочемо
+          привітати тебе з Днем народження!!<br>
+          Такс, а тепер по нормальному. Бро,
+          ми тебе любимо, і надіємось, що ти побудуєш, таке життя, яке хочеш. Ти
+          на це заслуговуєш!! А ми тебе підтримаємо 💋 І не важливо чи ми в
+          одному будинку, чи на різних сторонах планети, всеодно будемо поруч,
+          тому відкинь переживання і дій!! Ти справишся!! Ми в тебе віримо
+          Любимо і вітаємо нашу Лєну❤️
+        </p>
+      </div>
     </div>
 
     <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const candles = document.querySelectorAll(".cake .candle");
-    const actionButton = document.getElementById("action-button");
-    const audio = document.getElementById("birthday-audio");
-    const applauseAudio = document.getElementById("applause-audio");
-    const audioToggle = document.getElementById("audio-toggle");
-    const wishTextMessage = document.getElementById("wish-text-message");
-    const blowingJokeText = document.getElementById("blowing-joke-text");
-    const volumeMeter = document.getElementById("volume-meter");
-    const volumeBar = document.getElementById("volume-bar");
-    let mediaStream = null;
-    let audioContext = null;
+      document.addEventListener("DOMContentLoaded", function () {
+        const candles = document.querySelectorAll(".cake .candle");
+        const actionButton = document.getElementById("action-button");
+        const audio = document.getElementById("birthday-audio");
+        const applauseAudio = document.getElementById("applause-audio");
+        const audioToggle = document.getElementById("audio-toggle");
+        const wishTextMessage = document.getElementById("wish-text-message");
+        const blowingJokeText = document.getElementById("blowing-joke-text");
+        const volumeMeter = document.getElementById("volume-meter");
+        const volumeBar = document.getElementById("volume-bar");
+        let mediaStream = null;
+        let audioContext = null;
 
-    // --- Розміщення свічок ---
-    function calculateCandlePositions() {
-        const positions = [];
-        const centerX = 125, centerY = 47;
-        positions.push({ left: centerX - 6, top: -33 });
-        const innerCandleCount = 9, innerRadiusX = 50, innerRadiusY = 18;
-        for (let i = 0; i < innerCandleCount; i++) {
-            const angle = (2 * Math.PI / innerCandleCount) * i - Math.PI / 2;
-            positions.push({ left: centerX + innerRadiusX * Math.cos(angle) - 6, top: centerY + innerRadiusY * Math.sin(angle) - 35 });
+        // --- Розміщення свічок ---
+        function calculateCandlePositions() {
+          const positions = [];
+          const centerX = 125,
+            centerY = 47;
+          positions.push({ left: centerX - 6, top: -33 });
+          const innerCandleCount = 9,
+            innerRadiusX = 50,
+            innerRadiusY = 18;
+          for (let i = 0; i < innerCandleCount; i++) {
+            const angle = ((2 * Math.PI) / innerCandleCount) * i - Math.PI / 2;
+            positions.push({
+              left: centerX + innerRadiusX * Math.cos(angle) - 6,
+              top: centerY + innerRadiusY * Math.sin(angle) - 35,
+            });
+          }
+          const outerCandleCount = 16,
+            outerRadiusX = 110,
+            outerRadiusY = 40;
+          for (let i = 0; i < outerCandleCount; i++) {
+            const angle = ((2 * Math.PI) / outerCandleCount) * i - Math.PI / 2;
+            positions.push({
+              left: centerX + outerRadiusX * Math.cos(angle) - 6,
+              top: centerY + outerRadiusY * Math.sin(angle) - 35,
+            });
+          }
+          return positions;
         }
-        const outerCandleCount = 16, outerRadiusX = 110, outerRadiusY = 40;
-        for (let i = 0; i < outerCandleCount; i++) {
-            const angle = (2 * Math.PI / outerCandleCount) * i - Math.PI / 2;
-            positions.push({ left: centerX + outerRadiusX * Math.cos(angle) - 6, top: centerY + outerRadiusY * Math.sin(angle) - 35 });
-        }
-        return positions;
-    }
-    const candlePositions = calculateCandlePositions();
-    candles.forEach((candle, index) => {
-        if (candlePositions[index]) {
+        const candlePositions = calculateCandlePositions();
+        candles.forEach((candle, index) => {
+          if (candlePositions[index]) {
             candle.style.left = `${candlePositions[index].left}px`;
             candle.style.top = `${candlePositions[index].top}px`;
             candle.style.zIndex = Math.round(candlePositions[index].top) + 50;
-        }
-    });
+          }
+        });
 
-    // --- Кнопка звуку ---
-    function syncAudioButton() {
-        if (audio.paused) {
-            audioToggle.classList.remove('fa-music');
-            audioToggle.classList.add('fa-volume-xmark');
-        } else {
-            audioToggle.classList.remove('fa-volume-xmark');
-            audioToggle.classList.add('fa-music');
+        // --- Кнопка звуку ---
+        function syncAudioButton() {
+          if (audio.paused) {
+            audioToggle.classList.remove("fa-music");
+            audioToggle.classList.add("fa-volume-xmark");
+          } else {
+            audioToggle.classList.remove("fa-volume-xmark");
+            audioToggle.classList.add("fa-music");
+          }
         }
-    }
-    audio.addEventListener('play', syncAudioButton);
-    audio.addEventListener('pause', syncAudioButton);
+        audio.addEventListener("play", syncAudioButton);
+        audio.addEventListener("pause", syncAudioButton);
 
-    audioToggle.addEventListener("click", () => {
-        if (audio.paused) {
+        audioToggle.addEventListener("click", () => {
+          if (audio.paused) {
             audio.play().catch(() => {});
-        } else {
+          } else {
             audio.pause();
+          }
+        });
+
+        // Запускаємо музику тільки після першого кліку по будь-якому місцю
+        function startMusicOnce() {
+          audio.play().catch(() => {});
+          document.removeEventListener("click", startMusicOnce);
+          document.removeEventListener("touchstart", startMusicOnce);
         }
-    });
+        document.addEventListener("click", startMusicOnce);
+        document.addEventListener("touchstart", startMusicOnce);
 
-    // Запускаємо музику тільки після першого кліку по будь-якому місцю
-    function startMusicOnce() {
-        audio.play().catch(() => {});
-        document.removeEventListener("click", startMusicOnce);
-        document.removeEventListener("touchstart", startMusicOnce);
-    }
-    document.addEventListener("click", startMusicOnce);
-    document.addEventListener("touchstart", startMusicOnce);
+        // --- Оплески ---
+        applauseAudio.addEventListener("ended", () => {
+          audio.play().catch(() => {});
+        });
 
-    // --- Оплески ---
-    applauseAudio.addEventListener('ended', () => {
-        audio.play().catch(()=>{});
-    });
-
-    // --- Мікрофон ---
-    function shuffle(array) {
-        for (let i = array.length - 1; i > 0; i--) {
+        // --- Мікрофон ---
+        function shuffle(array) {
+          for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
+          }
+          return array;
         }
-        return array;
-    }
 
-    function startCandleBlowing() {
-        actionButton.textContent = "Слухаємо...";
-        actionButton.disabled = true;
+        function startCandleBlowing() {
+          actionButton.textContent = "Слухаємо...";
+          actionButton.disabled = true;
 
-        navigator.mediaDevices.getUserMedia({ audio: true })
-            .then(stream => {
-                mediaStream = stream;
-                if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const source = audioContext.createMediaStreamSource(stream);
-                const analyser = audioContext.createAnalyser();
-                source.connect(analyser);
-                analyser.fftSize = 512;
-                const dataArray = new Uint8Array(analyser.frequencyBinCount);
+          navigator.mediaDevices
+            .getUserMedia({ audio: true })
+            .then((stream) => {
+              mediaStream = stream;
+              if (!audioContext)
+                audioContext = new (window.AudioContext ||
+                  window.webkitAudioContext)();
+              const source = audioContext.createMediaStreamSource(stream);
+              const analyser = audioContext.createAnalyser();
+              source.connect(analyser);
+              analyser.fftSize = 512;
+              const dataArray = new Uint8Array(analyser.frequencyBinCount);
 
-                wishTextMessage.style.display = "none";
-                actionButton.textContent = "Задувай";
-                actionButton.classList.add('instructional');
-                blowingJokeText.style.display = "block";
-                volumeMeter.style.display = "block";
+              wishTextMessage.style.display = "none";
+              actionButton.textContent = "Задувай";
+              actionButton.classList.add("instructional");
+              blowingJokeText.style.display = "block";
+              volumeMeter.style.display = "block";
 
-                function processMicrophoneInput() {
-                    if (!mediaStream) return;
+              function processMicrophoneInput() {
+                if (!mediaStream) return;
 
-                    analyser.getByteFrequencyData(dataArray);
-                    const volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
-                    volumeBar.style.height = `${Math.min(volume / 255 * 100, 100)}%`;
+                analyser.getByteFrequencyData(dataArray);
+                const volume =
+                  dataArray.reduce((a, b) => a + b) / dataArray.length;
+                volumeBar.style.height = `${Math.min(
+                  (volume / 255) * 100,
+                  100
+                )}%`;
 
-                    const remainingCandles = Array.from(document.querySelectorAll('.candle:not(.out)'));
-                    if (volume > 45 && remainingCandles.length > 0) {
-                        const candlesToBlowOutCount = Math.min(remainingCandles.length, 3);
-                        const shuffledCandles = shuffle(remainingCandles);
-                        for (let i = 0; i < candlesToBlowOutCount; i++) {
-                            shuffledCandles[i].classList.add('out');
-                        }
-                    }
-                    if (document.querySelectorAll('.candle:not(.out)').length === 0) {
-                        finishBlowing();
-                    } else {
-                        requestAnimationFrame(processMicrophoneInput);
-                    }
+                const remainingCandles = Array.from(
+                  document.querySelectorAll(".candle:not(.out)")
+                );
+                if (volume > 45 && remainingCandles.length > 0) {
+                  const candlesToBlowOutCount = Math.min(
+                    remainingCandles.length,
+                    3
+                  );
+                  const shuffledCandles = shuffle(remainingCandles);
+                  for (let i = 0; i < candlesToBlowOutCount; i++) {
+                    shuffledCandles[i].classList.add("out");
+                  }
                 }
-                processMicrophoneInput();
+                if (
+                  document.querySelectorAll(".candle:not(.out)").length === 0
+                ) {
+                  finishBlowing();
+                } else {
+                  requestAnimationFrame(processMicrophoneInput);
+                }
+              }
+              processMicrophoneInput();
             })
-            .catch(err => {
-                console.error("Доступ до мікрофона відхилено:", err);
-                actionButton.textContent = "Доступ до мікрофона відхилено";
-                actionButton.disabled = false;
-                setTimeout(resetCandles, 5000);
+            .catch((err) => {
+              console.error("Доступ до мікрофона відхилено:", err);
+              actionButton.textContent = "Доступ до мікрофона відхилено";
+              actionButton.disabled = false;
+              setTimeout(resetCandles, 5000);
             });
-    }
-
-    function finishBlowing() {
-        if (mediaStream) {
-            mediaStream.getTracks().forEach(track => track.stop());
-            mediaStream = null;
         }
-        volumeMeter.style.display = "none";
 
-        triggerConfetti();
+        function finishBlowing() {
+          if (mediaStream) {
+            mediaStream.getTracks().forEach((track) => track.stop());
+            mediaStream = null;
+          }
+          volumeMeter.style.display = "none";
 
-        // Спочатку зупиняємо музику, потім запускаємо оплески
-        audio.pause();
-        applauseAudio.currentTime = 0;
-        applauseAudio.play().catch(()=>{});
+          triggerConfetti();
 
-        wishTextMessage.textContent = "Вітаємо! Нехай всі твої бажання здійснюються.";
-        wishTextMessage.classList.add('small');
-        wishTextMessage.style.display = "block";
-        blowingJokeText.style.display = "none";
-        actionButton.textContent = "Задути свічки ще раз";
-        actionButton.classList.remove('instructional');
-        actionButton.disabled = false;
-    }
+          // Спочатку зупиняємо музику, потім запускаємо оплески
+          audio.pause();
+          applauseAudio.currentTime = 0;
+          applauseAudio.play().catch(() => {});
 
-    function triggerConfetti() {
-        const duration = 5 * 1000, animationEnd = Date.now() + duration;
-        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
-        const randomInRange = (min, max) => Math.random() * (max - min) + min;
-        const interval = setInterval(() => {
+          wishTextMessage.textContent =
+            "Вітаємо! Нехай всі твої бажання здійснюються.";
+          wishTextMessage.classList.add("small");
+          wishTextMessage.style.display = "block";
+          blowingJokeText.style.display = "none";
+          actionButton.textContent = "Задути свічки ще раз";
+          actionButton.classList.remove("instructional");
+          actionButton.disabled = false;
+        }
+
+        function triggerConfetti() {
+          const duration = 5 * 1000,
+            animationEnd = Date.now() + duration;
+          const defaults = {
+            startVelocity: 30,
+            spread: 360,
+            ticks: 60,
+            zIndex: 100,
+          };
+          const randomInRange = (min, max) => Math.random() * (max - min) + min;
+          const interval = setInterval(() => {
             const timeLeft = animationEnd - Date.now();
             if (timeLeft <= 0) return clearInterval(interval);
             const particleCount = 50 * (timeLeft / duration);
-            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-        }, 250);
-    }
-
-    function resetCandles() {
-        candles.forEach(candle => candle.classList.remove("out"));
-        applauseAudio.pause();
-        applauseAudio.currentTime = 0;
-        audio.play().catch(()=>{});
-        wishTextMessage.textContent = "Загадай бажання і спробуй задути";
-        wishTextMessage.classList.remove('small');
-        actionButton.textContent = "Загадати бажання";
-        actionButton.disabled = false;
-    }
-
-    actionButton.addEventListener("click", () => {
-        if (actionButton.textContent.includes("ще раз")) {
-            resetCandles();
-        } else {
-            startCandleBlowing();
+            confetti(
+              Object.assign({}, defaults, {
+                particleCount,
+                origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+              })
+            );
+            confetti(
+              Object.assign({}, defaults, {
+                particleCount,
+                origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+              })
+            );
+          }, 250);
         }
-    });
 
-    // Модальне вікно листа
-    const letterModal = document.getElementById("letter-modal");
-    document.getElementById("show-letter-button").addEventListener("click", () => letterModal.style.display = "flex");
-    document.querySelector("#letter-modal .close-button").addEventListener("click", () => letterModal.style.display = "none");
-    window.addEventListener("click", (event) => { if (event.target === letterModal) letterModal.style.display = "none"; });
+        function resetCandles() {
+          candles.forEach((candle) => candle.classList.remove("out"));
+          applauseAudio.pause();
+          applauseAudio.currentTime = 0;
+          audio.play().catch(() => {});
+          wishTextMessage.textContent = "Загадай бажання і спробуй задути";
+          wishTextMessage.classList.remove("small");
+          actionButton.textContent = "Загадати бажання";
+          actionButton.disabled = false;
+        }
 
-    // Відео
-    const videoContainer = document.getElementById('fullscreen-video-container');
-    const showVideoButton = document.getElementById('show-video-button');
-    const closeVideoButton = document.getElementById('close-video-button');
-    const videoIframe = document.getElementById('fullscreen-video');
-    const videoSrc = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1";
-    showVideoButton.addEventListener('click', () => {
-        videoContainer.style.display = 'flex';
-        videoIframe.src = videoSrc;
-        audio.pause();
-    });
-    closeVideoButton.addEventListener('click', () => {
-        videoContainer.style.display = 'none';
-        videoIframe.src = "";
-        if (applauseAudio.paused) audio.play().catch(()=>{});
-    });
+        actionButton.addEventListener("click", () => {
+          if (actionButton.textContent.includes("ще раз")) {
+            resetCandles();
+          } else {
+            startCandleBlowing();
+          }
+        });
 
-    syncAudioButton();
-});
-</script>
+        // Модальне вікно листа
+        const letterModal = document.getElementById("letter-modal");
+        document
+          .getElementById("show-letter-button")
+          .addEventListener(
+            "click",
+            () => (letterModal.style.display = "flex")
+          );
+        document
+          .querySelector("#letter-modal .close-button")
+          .addEventListener(
+            "click",
+            () => (letterModal.style.display = "none")
+          );
+        window.addEventListener("click", (event) => {
+          if (event.target === letterModal) letterModal.style.display = "none";
+        });
 
-</body>
+        // Відео
+        const videoContainer = document.getElementById(
+          "fullscreen-video-container"
+        );
+        const showVideoButton = document.getElementById("show-video-button");
+        const closeVideoButton = document.getElementById("close-video-button");
+        const videoIframe = document.getElementById("fullscreen-video");
+        const videoSrc = "video1.mp4";
+        showVideoButton.addEventListener("click", () => {
+          videoContainer.style.display = "flex";
+          videoIframe.src = videoSrc;
+          audio.pause();
+        });
+        closeVideoButton.addEventListener("click", () => {
+          videoContainer.style.display = "none";
+          videoIframe.src = "";
+          if (applauseAudio.paused) audio.play().catch(() => {});
+        });
+
+        syncAudioButton();
+      });
+      // ✨ Sparkles around the title
+      function spawnStar() {
+        const titleEl = document.querySelector(".main-title");
+        if (!titleEl) return;
+        const rect = titleEl.getBoundingClientRect();
+        const star = document.createElement("div");
+        star.className = "sparkle";
+        const x = rect.left + window.scrollX + Math.random() * rect.width;
+        const y = rect.top + window.scrollY + Math.random() * rect.height;
+        star.style.left = x + "px";
+        star.style.top = y + "px";
+        document.body.appendChild(star);
+        setTimeout(() => star.remove(), 1800);
+      }
+      setInterval(spawnStar, 900);
+      // 🪄 Magical cursor trail
+      const produceParticle = (x, y) => {
+        const p = document.createElement("div");
+        p.className = "cursor-particle";
+        const size = 5 + Math.random() * 5;
+        p.style.width = size + "px";
+        p.style.height = size + "px";
+        p.style.left = x + "px";
+        p.style.top = y + "px";
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 900);
+      };
+
+      document.addEventListener(
+        "mousemove",
+        (e) => {
+          for (let i = 0; i < 2; i++) {
+            const jitterX = e.pageX + (Math.random() * 10 - 5);
+            const jitterY = e.pageY + (Math.random() * 10 - 5);
+            produceParticle(jitterX, jitterY);
+          }
+        },
+        { passive: true }
+      );
+
+      document.addEventListener(
+        "touchmove",
+        (e) => {
+          const t = e.touches[0];
+          if (!t) return;
+          for (let i = 0; i < 2; i++) {
+            const jitterX = t.pageX + (Math.random() * 10 - 5);
+            const jitterY = t.pageY + (Math.random() * 10 - 5);
+            produceParticle(jitterX, jitterY);
+          }
+        },
+        { passive: true }
+      );
+
+      // 🎁 Gift
+      (() => {
+        const giftOptions = [
+          "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3QxcHNhNjJ3MHY0cmMyeHVzeXJobzE3dmx2ejduZ3ozdXBrODU0ciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/W1hd3uXRIbddu/giphy.gif",
+          "https://pruvitannja.com.ua/_ph/5/2/431980828.gif?1756629698",
+          "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3cXk0bmlwN2kxYWRpcHY5a3MyajZhdm40MWR3bHlrbmh1OW1qM3YybCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TgZisaHmaWinhnI31G/giphy.gif",
+          "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3Z3p6YTJ1NTd4bGhycmMyMGM3ZDllejZibXFieTQwZTllOTlnN21ueiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3ohzdHb9vMEkpuEy40/giphy.gif",
+          "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3dXQ2OTYxeGJmZWR1dmExcTdmcjFnMmUwbmgycTUydDZjbGtkcm51YyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/f6CZJrxRVuZUW3aF0C/giphy.gif",
+          "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaGhyOHlpZjQ1N2ZydzgxMTZ1dmsxN2x2cnZ2dmZobTE2cHJwMDJ1MyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/2iSFL2T6rCHshOriVI/giphy.gif",
+          "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3OGsxM2p2d2FyYzBiNnBzMWVkeXR6aWVoZzcxc2thcGVzdDNwbDB2NCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Sxp1NDnlaHJGWEVYRS/giphy.gif"
+        
+        ];
+
+        const giftButton = document.getElementById("gift-button");
+        const giftBox = document.getElementById("gift-box");
+        const giftImage = document.getElementById("gift-image");
+        const giftHint = document.getElementById("gift-hint");
+
+        let clickCount = 0;
+        let currentIndex = 0;
+
+        giftButton.addEventListener("click", () => {
+          clickCount++;
+
+          // показуємо контейнер з гіфкою
+          giftBox.style.display = "block";
+
+          // беремо наступну гіфку по порядку
+          giftImage.src = giftOptions[currentIndex];
+          currentIndex = (currentIndex + 1) % giftOptions.length; // по колу
+
+          // логіка для тексту
+          if (clickCount === 1) {
+            giftHint.style.display = "block"; // показати після 1-го кліку
+          } else if (clickCount === 2) {
+            giftHint.style.display = "none"; // сховати після 2-го кліку
+          }
+        });
+      })();
+    </script>
+  </body>
 </html>
